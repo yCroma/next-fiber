@@ -1,13 +1,13 @@
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
-  const canvasRef = useRef(null);
 interface props {
   url: string;
   preset: JSON;
 }
 
 const FBXPlayer = ({ url, preset }: props) => {
+  const canvasRef = useRef();
   console.log(preset);
 
   useEffect(() => {
