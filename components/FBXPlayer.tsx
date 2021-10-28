@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 interface props {
@@ -26,6 +27,8 @@ const FBXPlayer = ({ url, preset }: props) => {
     const camera = new THREE.PerspectiveCamera(45, width / height);
     camera.position.set(0, 0, +1000);
     scene.add(camera);
+
+    const controls = new OrbitControls(camera, canvas);
 
     // light
     const AmbientLight = new THREE.AmbientLight(0xffffff, 4.0);
