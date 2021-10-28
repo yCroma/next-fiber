@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 interface props {
   url: string;
@@ -30,16 +31,22 @@ const FBXPlayer = ({ url, preset }: props) => {
     const AmbientLight = new THREE.AmbientLight(0xffffff, 4.0);
     scene.add(AmbientLight);
 
-    // 箱を作成
-    const geometry = new THREE.BoxGeometry(400, 400, 400);
-    const material = new THREE.MeshNormalMaterial();
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    // // 箱を作成
+    // const geometry = new THREE.BoxGeometry(400, 400, 400);
+    // const material = new THREE.MeshNormalMaterial();
+    // const cube = new THREE.Mesh(geometry, material);
+    // scene.add(cube);
+
+    // 3Dモデルをロード
+    const loader = new FBXLoader();
+    loader.load(url, (model) => {
+      scene.add(model);
+    });
 
     // animate
     const animate = () => {
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      // cube.rotation.x += 0.01;
+      // cube.rotation.y += 0.01;
 
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
