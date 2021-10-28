@@ -8,12 +8,21 @@ interface props {
   preset: JSON;
 }
 
+interface model {
+  model: THREE.Group;
+  mixer: THREE.AnimationMixer;
+  animations: Array<THREE.AnimationClip>;
+  actions: Array<THREE.AnimationAction>;
+}
+
 const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef();
+  const modelRef = useRef<model>();
   console.log(preset);
 
   useEffect(() => {
     console.log(canvasRef.current);
+    console.log("model", modelRef);
     const canvas = canvasRef.current;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
