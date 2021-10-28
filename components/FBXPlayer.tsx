@@ -25,7 +25,7 @@ const FBXPlayer = ({ url, preset }: props) => {
 
     // カメラを作成
     const camera = new THREE.PerspectiveCamera(45, width / height);
-    camera.position.set(0, 0, +1000);
+    camera.position.set(0, 0, +100);
     scene.add(camera);
 
     const controls = new OrbitControls(camera, canvas);
