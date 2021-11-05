@@ -53,9 +53,21 @@ const FBXPlayer = ({ url, preset }: props) => {
       console.log(model);
       scene.add(model);
     });
+    // resizehandle
+    const resizehandle = () => {
+      renderer.setSize(
+        canvasRef.current.clientWidth,
+        canvasRef.current.clientHeight,
+        false
+      );
+      camera.aspect =
+        canvasRef.current.clientWidth / canvasRef.current.clientHeight;
+      camera.updateProjectionMatrix;
+    };
 
     // animate
     const animate = () => {
+      resizehandle();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
