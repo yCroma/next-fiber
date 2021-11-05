@@ -17,10 +17,17 @@ interface model {
   actions?: Array<THREE.AnimationAction>;
 }
 
+interface ThreeParams {
+  renderer?: THREE.Renderer;
+  camera?: THREE.PerspectiveCamera;
+  scene?: THREE.Scene;
+}
+
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef();
+  const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
   console.log(preset);
 
