@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import useAnimation from "../customhooks/useAnimation";
 
 import { chakra } from "@chakra-ui/react";
 
@@ -67,19 +68,6 @@ const FBXPlayer = ({ url, preset }: props) => {
     });
   });
 
-  useEffect(() => {
-    // animate
-    const animate = () => {
-      resizehandle();
-      threeRef.current.renderer.render(
-        threeRef.current.scene,
-        threeRef.current.camera
-      );
-      requestAnimationFrame(animate);
-    };
-    animate();
-  });
-
   const resizehandle = () => {
     threeRef.current.renderer.setSize(
       canvasRef.current.clientWidth,
@@ -90,6 +78,19 @@ const FBXPlayer = ({ url, preset }: props) => {
       canvasRef.current.clientWidth / canvasRef.current.clientHeight;
     threeRef.current.camera.updateProjectionMatrix;
   };
+
+  const animate = (deltaTime) => {
+    resizehandle();
+    if (modelRef.current.mixer) {
+      modelRef.current.mixer.update(deltaTime);
+    }
+    threeRef.current.renderer.render(
+      threeRef.current.scene,
+      threeRef.current.camera
+    );
+  };
+
+  useAnimation(animate);
 
   return (
     <>
