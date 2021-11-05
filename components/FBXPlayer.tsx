@@ -71,22 +71,27 @@ const FBXPlayer = ({ url, preset }: props) => {
       console.log(model);
       scene.add(model);
     });
-    // resizehandle
-    const resizehandle = () => {
-      renderer.setSize(
-        canvasRef.current.clientWidth,
-        canvasRef.current.clientHeight,
-        false
-      );
-      camera.aspect =
-        canvasRef.current.clientWidth / canvasRef.current.clientHeight;
-      camera.updateProjectionMatrix;
-    };
+  });
+  // resizehandle
+  const resizehandle = () => {
+    threeRef.current.renderer.setSize(
+      canvasRef.current.clientWidth,
+      canvasRef.current.clientHeight,
+      false
+    );
+    threeRef.current.camera.aspect =
+      canvasRef.current.clientWidth / canvasRef.current.clientHeight;
+    threeRef.current.camera.updateProjectionMatrix;
+  };
 
+  useEffect(() => {
     // animate
     const animate = () => {
       resizehandle();
-      renderer.render(scene, camera);
+      threeRef.current.renderer.render(
+        threeRef.current.scene,
+        threeRef.current.camera
+      );
       requestAnimationFrame(animate);
     };
     animate();
