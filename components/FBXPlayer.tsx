@@ -50,6 +50,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     // 3Dモデルをロード
     const loader = new FBXLoader();
     loader.load(url, (model: THREE.Group) => {
+      modelRef.current.model = model;
       console.log(model);
       scene.add(model);
     });
