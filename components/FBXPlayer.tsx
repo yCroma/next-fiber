@@ -51,6 +51,13 @@ const FBXPlayer = ({ url, preset }: props) => {
     const loader = new FBXLoader();
     loader.load(url, (model: THREE.Group) => {
       modelRef.current.model = model;
+      modelRef.current.mixer = new THREE.AnimationMixer(model);
+      modelRef.current.animations = model.animations;
+      // 今回の開発では、1番目に登録されているアニメーションのみに対応する
+      modelRef.current.actions = [
+        modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
+      ];
+      modelRef.current.actions[0].play;
       console.log(model);
       scene.add(model);
     });
