@@ -4,6 +4,12 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import useAnimation from "../customhooks/useAnimation";
 
+import {
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+} from "@chakra-ui/react";
 import { chakra } from "@chakra-ui/react";
 
 interface props {
@@ -97,6 +103,12 @@ const FBXPlayer = ({ url, preset }: props) => {
       <h2>This is FBXPlayer</h2>
       <h3>{url}</h3>
       <Canvas w="100%" ref={canvasRef}></Canvas>
+      <Slider aria-label="slider-ex-1" defaultValue={30}>
+        <SliderTrack>
+          <SliderFilledTrack />
+        </SliderTrack>
+        <SliderThumb />
+      </Slider>
     </>
   );
 };
