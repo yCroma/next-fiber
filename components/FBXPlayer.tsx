@@ -29,33 +29,28 @@ const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef();
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
-  console.log(preset);
 
   useEffect(() => {
-    console.log(canvasRef.current);
-    console.log("model", modelRef);
     const canvas = canvasRef.current;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const renderer = new THREE.WebGLRenderer({
+    const store = threeRef.current;
+    // renderer
+    store.renderer = new THREE.WebGLRenderer({
       canvas: canvas,
     });
-    threeRef.current.renderer = renderer;
-
-    const scene = new THREE.Scene();
-    threeRef.current.scene = scene;
-
-    // カメラを作成
-    const camera = new THREE.PerspectiveCamera(45, width / height);
-    camera.position.set(0, 0, +100);
-    threeRef.current.camera = camera;
-    scene.add(camera);
-
-    const controls = new OrbitControls(camera, canvas);
-
+    // scene
+    store.scene = new THREE.Scene();
+    // camera
+    store.camera = new THREE.PerspectiveCamera(
+      45,
+      canvas.clientWidth / canvas.clientHeight
+    );
+    store.camera.position.set(0, 0, +100);
+    store.scene.add(store.camera);
+    // controls
+    const controls = new OrbitControls(store.camera, canvas);
     // light
     const AmbientLight = new THREE.AmbientLight(0xffffff, 4.0);
-    scene.add(AmbientLight);
+    store.scene.add(AmbientLight);
 
     // 3Dモデルをロード
     const loader = new FBXLoader();
@@ -68,21 +63,9 @@ const FBXPlayer = ({ url, preset }: props) => {
         modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
       ];
       modelRef.current.actions[0].play;
-      console.log(model);
-      scene.add(model);
+      store.scene.add(model);
     });
   });
-  // resizehandle
-  const resizehandle = () => {
-    threeRef.current.renderer.setSize(
-      canvasRef.current.clientWidth,
-      canvasRef.current.clientHeight,
-      false
-    );
-    threeRef.current.camera.aspect =
-      canvasRef.current.clientWidth / canvasRef.current.clientHeight;
-    threeRef.current.camera.updateProjectionMatrix;
-  };
 
   useEffect(() => {
     // animate
@@ -96,6 +79,17 @@ const FBXPlayer = ({ url, preset }: props) => {
     };
     animate();
   });
+
+  const resizehandle = () => {
+    threeRef.current.renderer.setSize(
+      canvasRef.current.clientWidth,
+      canvasRef.current.clientHeight,
+      false
+    );
+    threeRef.current.camera.aspect =
+      canvasRef.current.clientWidth / canvasRef.current.clientHeight;
+    threeRef.current.camera.updateProjectionMatrix;
+  };
 
   return (
     <>
