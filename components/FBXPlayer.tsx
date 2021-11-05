@@ -11,17 +11,17 @@ interface props {
 }
 
 interface model {
-  model: THREE.Group;
-  mixer: THREE.AnimationMixer;
-  animations: Array<THREE.AnimationClip>;
-  actions: Array<THREE.AnimationAction>;
+  model?: THREE.Group;
+  mixer?: THREE.AnimationMixer;
+  animations?: Array<THREE.AnimationClip>;
+  actions?: Array<THREE.AnimationAction>;
 }
 
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef();
-  const modelRef = useRef<model>();
+  const modelRef = useRef<model>({});
   console.log(preset);
 
   useEffect(() => {
