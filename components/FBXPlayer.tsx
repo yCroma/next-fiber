@@ -40,12 +40,15 @@ const FBXPlayer = ({ url, preset }: props) => {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
     });
+    threeRef.current.renderer = renderer;
 
     const scene = new THREE.Scene();
+    threeRef.current.scene = scene;
 
     // カメラを作成
     const camera = new THREE.PerspectiveCamera(45, width / height);
     camera.position.set(0, 0, +100);
+    threeRef.current.camera = camera;
     scene.add(camera);
 
     const controls = new OrbitControls(camera, canvas);
