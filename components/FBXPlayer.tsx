@@ -62,7 +62,7 @@ const FBXPlayer = ({ url, preset }: props) => {
       modelRef.current.actions = [
         modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
       ];
-      modelRef.current.actions[0].play;
+      modelRef.current.actions[0].play();
       store.scene.add(model);
     });
   });
