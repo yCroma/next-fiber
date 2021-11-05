@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
+import { chakra } from "@chakra-ui/react";
+
 interface props {
   url: string;
   preset: JSON;
@@ -14,6 +16,8 @@ interface model {
   animations: Array<THREE.AnimationClip>;
   actions: Array<THREE.AnimationAction>;
 }
+
+const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef();
@@ -62,7 +66,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     <>
       <h2>This is FBXPlayer</h2>
       <h3>{url}</h3>
-      <canvas ref={canvasRef}></canvas>
+      <Canvas w="100%" ref={canvasRef}></Canvas>
     </>
   );
 };
