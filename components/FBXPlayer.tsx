@@ -80,7 +80,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     threeRef.current.camera!.updateProjectionMatrix;
   };
 
-  const animate = (deltaTime) => {
+  const animate = (deltaTime: DOMHighResTimeStamp) => {
     resizehandle();
     if (modelRef.current.mixer) {
       modelRef.current.mixer.update(deltaTime);
