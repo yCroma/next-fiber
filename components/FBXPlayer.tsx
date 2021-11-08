@@ -37,7 +37,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     const store = threeRef.current;
     // renderer
     store.renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
+      canvas: canvas!,
     });
     // scene
     store.scene = new THREE.Scene();
@@ -49,7 +49,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     store.camera.position.set(0, 0, +100);
     store.scene.add(store.camera);
     // controls
-    const controls = new OrbitControls(store.camera, canvas);
+    const controls = new OrbitControls(store.camera, canvas!);
     // light
     const AmbientLight = new THREE.AmbientLight(0xffffff, 4.0);
     store.scene.add(AmbientLight);
