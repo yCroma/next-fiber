@@ -28,7 +28,7 @@ interface ThreeParams {
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
-  const canvasRef = useRef<HTMLCanvasElement>();
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
 
