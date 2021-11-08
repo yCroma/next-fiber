@@ -28,7 +28,7 @@ interface ThreeParams {
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
-  const canvasRef = useRef();
+  const canvasRef = useRef<HTMLCanvasElement>();
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
 
@@ -44,7 +44,7 @@ const FBXPlayer = ({ url, preset }: props) => {
     // camera
     store.camera = new THREE.PerspectiveCamera(
       45,
-      canvas.clientWidth / canvas.clientHeight
+      canvas!.clientWidth / canvas!.clientHeight
     );
     store.camera.position.set(0, 0, +100);
     store.scene.add(store.camera);
@@ -71,12 +71,12 @@ const FBXPlayer = ({ url, preset }: props) => {
 
   const resizehandle = () => {
     threeRef.current.renderer.setSize(
-      canvasRef.current.clientWidth,
-      canvasRef.current.clientHeight,
+      canvasRef.current!.clientWidth,
+      canvasRef.current!.clientHeight,
       false
     );
     threeRef.current.camera.aspect =
-      canvasRef.current.clientWidth / canvasRef.current.clientHeight;
+      canvasRef.current!.clientWidth / canvasRef.current!.clientHeight;
     threeRef.current.camera.updateProjectionMatrix;
   };
 
