@@ -9,7 +9,7 @@ import PlaybackBar from "./PlaybackBar";
 
 interface props {
   url: string;
-  preset: JSON;
+  preset: object;
 }
 
 interface model {
