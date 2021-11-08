@@ -25,12 +25,21 @@ interface ThreeParams {
   scene?: THREE.Scene;
 }
 
+interface Time {
+  currenttime?: number;
+  defaultstart?: number;
+  defaultend?: number;
+  presetstart?: number;
+  presetend?: number;
+}
+
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
+  const timeRef = useRef<Time>({});
 
   useEffect(() => {
     const canvas = canvasRef.current;
