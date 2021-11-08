@@ -65,19 +65,19 @@ const FBXPlayer = ({ url, preset }: props) => {
         modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
       ];
       modelRef.current.actions[0].play();
-      store.scene.add(model);
+      store.scene!.add(model);
     });
   });
 
   const resizehandle = () => {
-    threeRef.current.renderer.setSize(
+    threeRef.current.renderer!.setSize(
       canvasRef.current!.clientWidth,
       canvasRef.current!.clientHeight,
       false
     );
-    threeRef.current.camera.aspect =
+    threeRef.current.camera!.aspect =
       canvasRef.current!.clientWidth / canvasRef.current!.clientHeight;
-    threeRef.current.camera.updateProjectionMatrix;
+    threeRef.current.camera!.updateProjectionMatrix;
   };
 
   const animate = (deltaTime) => {
@@ -85,9 +85,9 @@ const FBXPlayer = ({ url, preset }: props) => {
     if (modelRef.current.mixer) {
       modelRef.current.mixer.update(deltaTime);
     }
-    threeRef.current.renderer.render(
-      threeRef.current.scene,
-      threeRef.current.camera
+    threeRef.current.renderer!.render(
+      threeRef.current.scene!,
+      threeRef.current.camera!
     );
   };
 
