@@ -7,7 +7,7 @@ import { useRef, useEffect } from "react";
 const useAnimation = (callback: Function) => {
   const animationRef = useRef<number>();
   const previousTimeRef = useRef<number>();
-  const animate = (time) => {
+  const animate = (time: DOMHighResTimeStamp) => {
     if (previousTimeRef.current === null) {
       previousTimeRef.current = time;
     }
