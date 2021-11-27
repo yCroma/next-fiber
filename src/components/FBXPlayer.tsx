@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
@@ -26,20 +26,26 @@ interface ThreeParams {
 }
 
 interface Time {
-  currenttime?: number;
-  defaultstart?: number;
-  defaultend?: number;
-  presetstart?: number;
-  presetend?: number;
+  step?: number;
+  time?: number;
+  start?: number;
+  end?: number;
+  preset?: {
+    status: boolean;
+    start: number;
+    end: number;
+  };
 }
 
 const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
+  const [time, setTime] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
-  const timeRef = useRef<Time>({});
+  //const timeRef = useRef<Time>({});
+  const [action, setAction] = useState<THREE.AnimationAction>();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -75,6 +81,11 @@ const FBXPlayer = ({ url, preset }: props) => {
       ];
       modelRef.current.actions[0].play();
       store.scene!.add(model);
+      // モデルを読み込んだ際に時間関連のデータも初期化
+      // timeRef.current.time = 0;
+      // timeRef.current.step = 0.001;
+      // timeRef.current.start = 0;
+      // timeRef.current.end = modelRef.current.animations[0].duration;
     });
   });
 
@@ -93,6 +104,8 @@ const FBXPlayer = ({ url, preset }: props) => {
     resizehandle();
     if (modelRef.current.mixer) {
       modelRef.current.mixer.update(deltaTime);
+      //console.log(modelRef.current.actions![0].time);
+      //setTime(modelRef.current.actions![0].time);
     }
     threeRef.current.renderer!.render(
       threeRef.current.scene!,
@@ -107,7 +120,8 @@ const FBXPlayer = ({ url, preset }: props) => {
       <h2>This is FBXPlayer</h2>
       <h3>{url}</h3>
       <Canvas w="100%" ref={canvasRef}></Canvas>
-      <PlaybackBar></PlaybackBar>
+      <PlaybackBar time={() => modelRef.current}></PlaybackBar>
+      <h4>{time}</h4>
     </>
   );
 };

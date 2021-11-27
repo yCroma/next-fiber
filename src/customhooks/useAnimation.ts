@@ -1,7 +1,20 @@
 import { useRef, useEffect } from "react";
 
 /**
- * 引数のcallbackの第一引数はdeltaTime
+ * キーフレームアニメーションのカスタムフック
+ * callbackに対して、deltaTimeを与える
+ * 想定される使用方法は、three.jsのAnimationMixerのupdateメソッドに
+ * deltaTimeを与えて、アニメーションを進めること
+ */
+
+/**
+ * // callback関数は第一引数がdeltaTimeであることを想定している
+ * // callback
+ * const animate = (deltaTime: DOMHighResTimeStamp) => {
+ *   AnimationMixer.update(deltaTime)
+ * }
+ * // customhook
+ * useAnimation(animate)
  */
 
 const useAnimation = (callback: Function) => {
