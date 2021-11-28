@@ -38,7 +38,7 @@ interface Time {
 
 const Canvas = chakra("canvas");
 
-const FBXPlayer = ({ url, preset }: props) => {
+const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
   const [time, setTime] = useState<DOMHighResTimeStamp>(0);
   const [play, setPlay] = useState<Boolean>(false);
   const [action, setAction] = useState<THREE.AnimationAction>();
