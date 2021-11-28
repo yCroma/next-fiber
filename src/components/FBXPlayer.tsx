@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as THREE from "three";
 
 import Renderer from "./blocks/Renderer";
-import PlaybackBar from "./PlaybackBar";
+import ScrubThrough from "./atoms/ScrubThrough";
 import PlayBackButton from "./atoms/PlayBackButton";
 
 interface Time {
@@ -26,10 +26,10 @@ const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
     <>
       <h2>This is FBXPlayer</h2>
       <h3>{url}</h3>
-      <PlaybackBar time={() => modelRef.current}></PlaybackBar>
       <Renderer url={url} setTime={setTime} />
       <h4>{time}</h4>
         <PlayBackButton setPlay={setPlay} play={play} />
+      <ScrubThrough time={time}></ScrubThrough>
     </>
   );
 };
