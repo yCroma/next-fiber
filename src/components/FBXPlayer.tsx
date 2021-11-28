@@ -6,24 +6,6 @@ import Renderer from "./blocks/Renderer";
 import PlaybackBar from "./PlaybackBar";
 import PlayBackButton from "./atoms/PlayBackButton";
 
-interface props {
-  url: string;
-  preset: object;
-}
-
-interface model {
-  model?: THREE.Group;
-  mixer?: THREE.AnimationMixer;
-  animations?: Array<THREE.AnimationClip>;
-  actions?: Array<THREE.AnimationAction>;
-}
-
-interface ThreeParams {
-  renderer?: THREE.Renderer;
-  camera?: THREE.PerspectiveCamera;
-  scene?: THREE.Scene;
-}
-
 interface Time {
   step?: number;
   time?: number;
