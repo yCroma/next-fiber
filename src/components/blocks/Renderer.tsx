@@ -25,11 +25,13 @@ interface ThreeParams {
 const Renderer = ({
   play,
   url,
+  setDuration,
   setTime,
   setPlay,
 }: {
   play: boolean;
   url: string;
+  setDuration: Function;
   setTime: Function;
   setPlay: Function;
 }) => {
@@ -67,6 +69,7 @@ const Renderer = ({
       modelRef.current.actions = [
         modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
       ];
+      setDuration(modelRef.current.animations![0].duration);
       modelRef.current.actions[0].play();
       setPlay(true);
       store.scene!.add(model);

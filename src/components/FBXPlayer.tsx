@@ -19,6 +19,7 @@ interface Time {
 
 const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
   const [time, setTime] = useState<DOMHighResTimeStamp>(0);
+  const [duration, setDuration] = useState<number>(0);
   const [play, setPlay] = useState<boolean>(false);
   const [action, setAction] = useState<THREE.AnimationAction>();
 
@@ -27,7 +28,13 @@ const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
       <h2>This is FBXPlayer</h2>
       <h3>{url}</h3>
       <h4>{time}</h4>
-      <Renderer url={url} play={play} setTime={setTime} setPlay={setPlay} />
+      <Renderer
+        url={url}
+        play={play}
+        setDuration={setDuration}
+        setTime={setTime}
+        setPlay={setPlay}
+      />
       <ScrubThrough time={time}></ScrubThrough>
         <PlayBackButton onClick={() => setPlay(!play)} play={play} />
     </>
