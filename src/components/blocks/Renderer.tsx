@@ -88,6 +88,8 @@ const Renderer = ({ url, setTime }: props) => {
       modelRef.current.mixer.update(deltaTime);
       //console.log(modelRef.current.actions![0].time);
       setTime(modelRef.current.actions![0].time);
+      // paused = true is .play()
+      modelRef.current.actions![0].paused = play;
     }
     threeRef.current.renderer!.render(
       threeRef.current.scene!,
