@@ -8,6 +8,7 @@ import { chakra } from "@chakra-ui/react";
 
 interface props {
   url: string;
+  setTime: Function;
 }
 
 interface model {
@@ -25,7 +26,7 @@ interface ThreeParams {
 
 const Canvas = chakra("canvas");
 
-const Renderer = ({ url }: props) => {
+const Renderer = ({ url, setTime }: props) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
@@ -85,7 +86,7 @@ const Renderer = ({ url }: props) => {
     if (modelRef.current.mixer) {
       modelRef.current.mixer.update(deltaTime);
       //console.log(modelRef.current.actions![0].time);
-      //setTime(modelRef.current.actions![0].time);
+      setTime(modelRef.current.actions![0].time);
     }
     threeRef.current.renderer!.render(
       threeRef.current.scene!,
