@@ -26,7 +26,17 @@ interface ThreeParams {
 
 const Canvas = chakra("canvas");
 
-const Renderer = ({ url, setTime }: props) => {
+const Renderer = ({
+  play,
+  url,
+  setTime,
+  setPlay,
+}: {
+  play: boolean;
+  url: string;
+  setTime: Function;
+  setPlay: Function;
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
