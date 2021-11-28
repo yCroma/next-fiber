@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 
-import { Box } from "@chakra-ui/react";
-
 const PlayBackButton = ({
   onClick,
   play,
@@ -16,15 +14,15 @@ const PlayBackButton = ({
    */
   if (!play) {
     return (
-      <Box onClick={() => setPlay(!play)}>
+      <div onClick={onClick}>
         <FontAwesomeIcon icon={faPlay} />
-      </Box>
+      </div>
     );
   } else {
     return (
-      <Box onClick={onClick}>
+      <div onClick={onClick}>
         <FontAwesomeIcon icon={faPause} />
-      </Box>
+      </div>
     );
   }
 };

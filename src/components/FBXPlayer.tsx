@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as THREE from "three";
 
-import { chakra } from "@chakra-ui/react";
 import Renderer from "./blocks/Renderer";
 import PlaybackBar from "./PlaybackBar";
 import PlayBackButton from "./atoms/PlayBackButton";
@@ -17,8 +16,6 @@ interface Time {
     end: number;
   };
 }
-
-const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
   const [time, setTime] = useState<DOMHighResTimeStamp>(0);

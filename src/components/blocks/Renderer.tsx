@@ -4,8 +4,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import useAnimation from "../../customhooks/useAnimation";
 
-import { chakra } from "@chakra-ui/react";
-
 interface props {
   url: string;
   setTime: Function;
@@ -23,8 +21,6 @@ interface ThreeParams {
   camera?: THREE.PerspectiveCamera;
   scene?: THREE.Scene;
 }
-
-const Canvas = chakra("canvas");
 
 const Renderer = ({
   play,
@@ -110,7 +106,7 @@ const Renderer = ({
   useAnimation(animate, [play]);
   return (
     <>
-      <Canvas w="100%" ref={canvasRef}></Canvas>
+      <canvas w="100%" ref={canvasRef}></canvas>
     </>
   );
 };
