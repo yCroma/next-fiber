@@ -95,7 +95,7 @@ const Renderer = ({ url, setTime }: props) => {
     );
   };
 
-  useAnimation(animate);
+  useAnimation(animate, [play]);
   return (
     <>
       <Canvas w="100%" ref={canvasRef}></Canvas>

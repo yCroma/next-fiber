@@ -17,7 +17,7 @@ import { useRef, useEffect } from "react";
  * useAnimation(animate)
  */
 
-const useAnimation = (callback: Function) => {
+const useAnimation = (callback: Function, watch: Array<any>) => {
   const animationRef = useRef<number>();
   const previousTimeRef = useRef<number>();
   const animate = (time: DOMHighResTimeStamp) => {
@@ -32,7 +32,7 @@ const useAnimation = (callback: Function) => {
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationRef.current!);
-  }, []);
+  }, [...watch]);
 };
 
 export default useAnimation;
