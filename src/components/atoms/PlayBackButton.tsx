@@ -4,10 +4,10 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import { Box } from "@chakra-ui/react";
 
 const PlayBackButton = ({
-  setPlay,
+  onClick,
   play,
 }: {
-  setPlay: Function;
+  onClick: MouseEventHandler;
   play: Boolean;
 }) => {
   /*
