@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { chakra } from "@chakra-ui/react";
 import Renderer from "./blocks/Renderer";
 import PlaybackBar from "./PlaybackBar";
+import PlayBackButton from "./atoms/PlayBackButton";
 
 interface props {
   url: string;
@@ -39,6 +40,7 @@ const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const [time, setTime] = useState<DOMHighResTimeStamp>(0);
+  const [play, setPlay] = useState<Boolean>(true);
   const [action, setAction] = useState<THREE.AnimationAction>();
 
   return (
@@ -48,6 +50,7 @@ const FBXPlayer = ({ url, preset }: props) => {
       <PlaybackBar time={() => modelRef.current}></PlaybackBar>
       <Renderer url={url} setTime={setTime} />
       <h4>{time}</h4>
+        <PlayBackButton setPlay={setPlay} play={play} />
     </>
   );
 };
