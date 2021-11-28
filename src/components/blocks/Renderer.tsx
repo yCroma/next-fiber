@@ -62,6 +62,7 @@ const Renderer = ({ url, setTime }: props) => {
         modelRef.current.mixer.clipAction(modelRef.current.animations[0]),
       ];
       modelRef.current.actions[0].play();
+      setPlay(true);
       store.scene!.add(model);
       // モデルを読み込んだ際に時間関連のデータも初期化
       // timeRef.current.time = 0;

@@ -40,7 +40,7 @@ const Canvas = chakra("canvas");
 
 const FBXPlayer = ({ url, preset }: props) => {
   const [time, setTime] = useState<DOMHighResTimeStamp>(0);
-  const [play, setPlay] = useState<Boolean>(true);
+  const [play, setPlay] = useState<Boolean>(false);
   const [action, setAction] = useState<THREE.AnimationAction>();
 
   return (
