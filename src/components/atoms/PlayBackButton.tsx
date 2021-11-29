@@ -8,20 +8,20 @@ const PlayBackButton = ({
   onClick: MouseEventHandler;
   play: Boolean;
 }) => {
-  /*
-   * 再生状態がtrueでpropsしてくる
-   * 再生時にstop、停止時にplayが表示されるようにしている
+  /**
+   * 再生中ならば、停止を促すボタンを表示
+   * 停止中ならば、再生を促すボタンを表示
    */
-  if (!play) {
+  if (play) {
     return (
       <div onClick={onClick}>
-        <FontAwesomeIcon icon={faPlay} />
+        <FontAwesomeIcon icon={faPause} />
       </div>
     );
   } else {
     return (
       <div onClick={onClick}>
-        <FontAwesomeIcon icon={faPause} />
+        <FontAwesomeIcon icon={faPlay} />
       </div>
     );
   }
