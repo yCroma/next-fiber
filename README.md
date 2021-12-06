@@ -1,5 +1,7 @@
 # next-fiber
 
+ui ライブラリは、material-ui を採用した
+
 現状はアップロードのみ対応
 
 - `/index`
