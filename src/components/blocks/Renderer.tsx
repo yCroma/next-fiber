@@ -4,6 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import useAnimation from "../../customhooks/useAnimation";
 
+import rafSchd from "raf-schd";
+
 interface props {
   url: string;
   setTime: Function;
@@ -23,14 +25,20 @@ interface ThreeParams {
 }
 
 const Renderer = ({
+  clock,
   play,
   url,
+  time,
+  setClock,
   setDuration,
   setTime,
   setPlay,
 }: {
+  clock: any;
   play: boolean;
   url: string;
+  time: number;
+  setClock: Function;
   setDuration: Function;
   setTime: Function;
   setPlay: Function;
@@ -38,7 +46,14 @@ const Renderer = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const threeRef = useRef<ThreeParams>({});
   const modelRef = useRef<model>({});
+
+  const clockRef = useRef({});
   useEffect(() => {
+    //
+    const clock = new THREE.Clock();
+    //clockRef.current = new THREE.Clock();
+    setClock(clock);
+    //
     const canvas = canvasRef.current || document.createElement("canvas");
     const store = threeRef.current;
     // renderer
@@ -94,11 +109,14 @@ const Renderer = ({
   const animate = (deltaTime: DOMHighResTimeStamp) => {
     resizehandle();
     if (modelRef.current.mixer) {
-      modelRef.current.mixer.update(deltaTime);
-      //console.log(modelRef.current.actions![0].time);
-      setTime(modelRef.current.actions![0].time);
-      // paused = true is .play()
-      modelRef.current.actions![0].paused = play;
+      if (play) {
+        modelRef.current.actions![0].paused = false;
+        modelRef.current.mixer.update(deltaTime);
+        setTime(modelRef.current.actions![0].time);
+      } else {
+        modelRef.current.actions![0].time = time;
+        modelRef.current.mixer.setTime(time);
+      }
     }
     threeRef.current.renderer!.render(
       threeRef.current.scene!,
@@ -106,7 +124,7 @@ const Renderer = ({
     );
   };
 
-  useAnimation(animate, [play]);
+  useAnimation(animate, [play, time]);
   return (
     <>
       <canvas w="100%" ref={canvasRef}></canvas>

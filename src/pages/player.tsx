@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import FBXPlayer from "../components/FBXPlayer";
 
+import Grid from "@mui/material/Grid";
 
 const Player: NextPage = () => {
   const fbxurl = "/test.fbx";
@@ -10,10 +11,11 @@ const Player: NextPage = () => {
   };
   const [preset, SetPreset] = useState(PresetInit);
   return (
-    <>
-      <h1>hello</h1>
+    <Grid container justifyContent="center">
+      <div w="80%" m="auto">
         <FBXPlayer url={fbxurl} preset={preset} />
-    </>
+      </div>
+    </Grid>
   );
 };
 

@@ -1,19 +1,23 @@
-import { useEffect } from "react";
 import Slider from "@mui/material/Slider";
-// const multiply1000 = (ms: number) => ms * 1000;
-const multiply1000 = (ms: number) => {
-  console.log(ms);
-  return ms * 1000;
-};
 
-const ScrubThrough = ({ time }: { time: DOMHighResTimeStamp }) => {
+const ScrubThrough = ({
+  duration,
+  position,
+  onChange,
+}: {
+  duration: number;
+  position: number;
+  onChange: any;
+}) => {
   return (
     <Slider
-      defaultValue={0.01}
+      defaultValue={0}
+      value={position}
       step={0.001}
       min={0}
-      max={5}
+      max={duration}
       valueLabelDisplay="auto"
+      onChange={onChange}
     ></Slider>
   );
 };
