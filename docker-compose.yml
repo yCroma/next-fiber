@@ -21,3 +21,19 @@ services:
     command: sh -c "npm run start:dev"
     ports:
       - "8080:8080"
+  mysql:
+    # json型のサポートが5.7.8以降だから
+    image: mysql:5.7.36
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.conf
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
