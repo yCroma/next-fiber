@@ -1,0 +1,7 @@
+services:
+  web:
+    command: sh -c "npm run dev"
+  server:
+    command: sh -c "npm run start:dev"
+  mysql:
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
