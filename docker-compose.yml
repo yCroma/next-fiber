@@ -21,6 +21,9 @@ services:
     command: sh -c "npm run start:dev"
     ports:
       - "8080:8080"
+    depends_on:
+      - mysql
+
   mysql:
     # json型のサポートが5.7.8以降だから
     image: mysql:5.7.36
