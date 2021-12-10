@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Docker-Compose for Dev
+DCD="docker-compose -f docker-compose.yml -f docker-compose.dev.yaml"
+
+eval ${DCD} run --rm --service-ports web
+
+docker-compose down
