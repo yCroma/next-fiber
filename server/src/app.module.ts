@@ -7,18 +7,7 @@ import { CatsService } from './cats/cats.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'db',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'develop',
-      entities: [],
-      synchronize: true,
-    }),
-  ],
+  imports: [TypeOrmModule.forRoot()],
   controllers: [AppController, CatsController],
   providers: [AppService, CatsService],
 })
