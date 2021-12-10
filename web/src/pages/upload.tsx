@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
+import { DropzoneArea } from "material-ui-dropzone";
 
 const Upload: NextPage = () => {
   return (
-    <Grid container spacing={0}>
-      <Typography variant="h2">Upload a FBX file</Typography>
-    </Grid>
+    <Stack spacing={2}>
+      <Grid item>
+        <Typography variant="h2">Upload a FBX file</Typography>
+      </Grid>
+      <DropzoneArea
+        filesLimit={1}
+        acceptedFiles={[".fbx"]}
+        dropzoneText={"Drag and drop an file(.fbx) or click"}
+        onChange={(files) => console.log("Files: ", files)}
+      />
+    </Stack>
   );
 };
 
