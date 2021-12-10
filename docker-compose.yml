@@ -23,7 +23,7 @@ services:
     depends_on:
       - mysql
 
-  mysql:
+  db:
     # json型のサポートが5.7.8以降だから
     image: mysql:5.7.36
     environment:
