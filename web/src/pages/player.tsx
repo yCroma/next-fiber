@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import FBXPlayer from "../components/FBXPlayer";
-import NewPlayer from "../components/molds/NewPlayer";
+import FBXPlayer from "../ui/FBXPlayer";
+import NewPlayer from "../ui/molds/NewPlayer";
 
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
