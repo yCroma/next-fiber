@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import FBXPlayer from "../components/FBXPlayer";
+import NewPlayer from "../components/molds/NewPlayer";
 
 import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 
 const Player: NextPage = () => {
   const fbxurl = "/test.fbx";
@@ -11,11 +13,12 @@ const Player: NextPage = () => {
   };
   const [preset, SetPreset] = useState(PresetInit);
   return (
-    <Grid container justifyContent="center">
-      <div w="80%" m="auto">
+    <Stack sx={{ width: "80%", mx: "auto" }}>
+      <NewPlayer url={fbxurl} />
+      <Stack>
         <FBXPlayer url={fbxurl} preset={preset} />
-      </div>
-    </Grid>
+      </Stack>
+    </Stack>
   );
 };
 
