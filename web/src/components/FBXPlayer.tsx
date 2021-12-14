@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
-import useToggle from "../customhooks/useToggle.tsx";
+import React, { useReducer, useCallback, useState } from "react";
+import useToggle from "../customhooks/useToggle";
+import useAnimation from "../customhooks/useAnimation";
 
 import Renderer from "./blocks/Renderer";
 import ScrubThrough from "./atoms/ScrubThrough";
@@ -10,7 +11,7 @@ import { Grid, Typography } from "@mui/material";
 const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
   const [time, setTime] = useState<DOMHighResTimeStamp | number>(0);
   const [duration, setDuration] = useState<number>(0);
-  const [play, setPlay] = useToggle<boolean>(false);
+  const [play, setPlay] = useState(false);
 
   const [clock, setClock] = useState(null);
 
@@ -45,7 +46,10 @@ const FBXPlayer = ({ url, preset }: { url: string; preset: object }) => {
         }}
       ></ScrubThrough>
       <Grid container>
-        <PlayBackButton onClick={setPlay} play={play} />
+        <PlayBackButton
+          onClick={() => setPlay((value) => !value)}
+          play={play}
+        />
         <Typography>{ExportDisplayTime(time)}</Typography>
       </Grid>
     </>
