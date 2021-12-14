@@ -1,10 +1,10 @@
 import React, { useReducer, useCallback, useState } from "react";
-import useToggle from "../customhooks/useToggle";
-import useAnimation from "../customhooks/useAnimation";
+import useToggle from "../../customhooks/useToggle";
+import useAnimation from "../../customhooks/useAnimation";
 
-import Renderer from "./blocks/Renderer";
-import ScrubThrough from "./atoms/ScrubThrough";
-import PlayBackButton from "./atoms/PlayBackButton";
+import Renderer from "../units/Renderer";
+import ScrubThrough from "../parts/ScrubThrough";
+import PlayBackButton from "../parts/PlayBackButton";
 
 import { Grid, Typography } from "@mui/material";
 

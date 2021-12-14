@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { Grid, Stack, Typography } from "@mui/material";
-import NewRenderer from "../molds/NewRenderer";
-import PlayBackButton from "../atoms/PlayBackButton";
-import ScrubThrough from "../atoms/ScrubThrough";
+import NewRenderer from "../parts/NewRenderer";
+import PlayBackButton from "../parts/PlayBackButton";
+import ScrubThrough from "../parts/ScrubThrough";
 
 /**
  * プレイヤーに求めること:
