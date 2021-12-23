@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 //import useAnimation from "../../customhooks/useAnimation";
 /**
@@ -76,10 +76,7 @@ const NewRenderer = ({
     Store.Camera.lookAt(0, 40, 0);
     Store.Scene.add(Store.Camera);
     // Controls
-    Store.Controls = new OrbitControls(
-      Store.Camera,
-      Store.Renderer.domElement
-    );
+    Store.Controls = new OrbitControls(Store.Camera, Store.Renderer.domElement);
     Store.Controls.target.set(0, 0, 0);
     Store.Controls.update();
 
