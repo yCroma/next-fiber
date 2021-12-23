@@ -1,8 +1,11 @@
+import dynamic from 'next/dynamic';
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { Grid, Stack, Typography } from '@mui/material';
-import NewRenderer from '../parts/NewRenderer';
 import PlayBackButton from '../parts/PlayBackButton';
 import ScrubThrough from '../parts/ScrubThrough';
+
+// only clientside
+const NewRenderer = dynamic(() => import('../parts/NewRenderer'));
 
 /**
  * プレイヤーに求めること:
