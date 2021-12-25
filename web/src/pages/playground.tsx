@@ -1,10 +1,14 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import FBXPlayer from '../ui/units/FBXPlayer';
-import NewPlayer from '../ui/units/NewPlayer';
 
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+
+const CSPlayer = dynamic(() => import('../ui/csr/units/CSPlayer'), {
+  loading: () => <p>Loading ...</p>,
+  ssr: false,
+});
 
 const Player: NextPage = () => {
   const fbxurl = '/test.fbx';
@@ -14,10 +18,7 @@ const Player: NextPage = () => {
   const [preset, SetPreset] = useState(PresetInit);
   return (
     <Stack sx={{ width: '80%', mx: 'auto' }}>
-      <NewPlayer url={fbxurl} />
-      <Stack>
-        <FBXPlayer url={fbxurl} preset={preset} />
-      </Stack>
+      <CSPlayer />
     </Stack>
   );
 };
