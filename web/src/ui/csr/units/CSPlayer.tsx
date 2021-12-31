@@ -66,11 +66,14 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // adds
     const Params = {
       background: `#${Scene.background.getHexString()}`,
+      lights: {
+      },
     };
     const folder1 = root.addFolder('parameter');
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
+    const folder11 = folder1.addFolder('lights');
 
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
