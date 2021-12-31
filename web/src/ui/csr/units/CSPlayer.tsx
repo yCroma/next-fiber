@@ -50,12 +50,6 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     const DirectionalLight = new THREE.DirectionalLight(0xffffff);
     Lights.push(DirectionalLight);
     Scene.add(Lights[1]);
-    // PointLight
-    const PointLight = new THREE.PointLight();
-    Lights.push(PointLight);
-    // RectAreaLight
-    const RectAreaLight = new THREE.RectAreaLight();
-    Lights.push(RectAreaLight);
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
