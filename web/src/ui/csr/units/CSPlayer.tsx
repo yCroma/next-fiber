@@ -18,16 +18,42 @@ const CSRenderer = () => {
     const Target: HTMLDivElement = TargetRef.current;
     console.log('width: ', Target.clientWidth);
     console.log('width: ', Target.offsetWidth);
-    const appendClildren = [];
+    // initialization
+    const width = Target.clientWidth;
+    const height = Target.clientHeight;
+    // Scene
+    const Scene: THREE.Scene = new THREE.Scene();
+    Scene.background = new THREE.Color(0xf0f0f0);
+    // Renderer
+    const Renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer();
+    Renderer.setPixelRatio(window.devicePixelRatio);
+    Target.appendChild(Renderer.domElement);
+    // Camera
+    const Camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
+      45,
+      width / height,
+      1,
+      1000
+    );
+    Camera.position.set(0, 10, 50);
+    Camera.lookAt(0, 40, 0);
+    Scene.add(Camera);
+    // OrbitControls
+    const Controls: OrbitControls = new OrbitControls(
+      Camera,
+      Renderer.domElement
+    );
+    // Lights
+    const Lights: Array<THREE.Light> = [];
+    // Light1
+    Lights.push(new THREE.HemisphereLight(0xffffff, 0x444444));
+    Scene.add(Lights[0]);
+    // Light2
+    Lights.push(new THREE.DirectionalLight(0xffffff));
+    Scene.add(Lights[1]);
+
     dat();
-    init();
-    function init() {
-      const Renderer = new THREE.WebGLRenderer();
-      Renderer.setPixelRatio(window.devicePixelRatio);
-      Renderer.domElement.width = Target.clientWidth;
-      Target.appendChild(Renderer.domElement);
-      animate();
-    }
+    animate();
     function dat() {
       const root = new GUI({ autoPlace: false });
       Target.appendChild(root.domElement);
