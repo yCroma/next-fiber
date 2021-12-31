@@ -62,9 +62,30 @@ const CSRenderer = () => {
     animate();
     function animate() {
       requestAnimationFrame(animate);
+      if (resizeRendererToDisplaySize(Renderer)) {
+        const canvas = Renderer.domElement;
+        Camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        Camera.updateMatrix();
+      }
       //console.log('Target clientWidth: ', Target.clientWidth);
     }
-    function resizeRendererToDisplaySize();
+    function resizeRendererToDisplaySize(
+      renderer: THREE.WebGLRenderer
+    ): boolean {
+      /**
+       * Three.js公式のレスポンシブ
+       * https://threejs.org/manual/#en/responsive
+       */
+      const canvas = renderer.domElement;
+      const width = Target.clientWidth;
+      const height = Target.clientHeight;
+      const needResize: boolean =
+        canvas.width !== width || canvas.height !== height;
+      if (needResize) {
+        renderer.setSize(width, height);
+      }
+      return needResize;
+    }
     console.log('Dom afterthree: ', TargetRef.current);
   }, []);
   return (
