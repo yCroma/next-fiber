@@ -52,20 +52,14 @@ const CSRenderer = () => {
     Lights.push(new THREE.DirectionalLight(0xffffff));
     Scene.add(Lights[1]);
 
-    dat();
+    // dat.GUI
+    const root = new GUI({ autoPlace: false });
+    Target.appendChild(root.domElement);
+    root.domElement.style.position = 'absolute';
+    root.domElement.style.top = '2px';
+    root.domElement.style.right = `2px`;
+
     animate();
-    function dat() {
-      const root = new GUI({ autoPlace: false });
-      Target.appendChild(root.domElement);
-      const rootWidth = root.domElement.clientWidth;
-      // style は resize毎に行う
-      root.domElement.style.position = 'absolute';
-      root.domElement.style.top = '0px';
-      root.domElement.style.right = `${rootWidth}px`;
-    }
-    function DoAppendChildren() {
-      console.log('appendClildren: ', appendClildren);
-    }
     function animate() {
       requestAnimationFrame(animate);
       //console.log('Target clientWidth: ', Target.clientWidth);
