@@ -42,12 +42,20 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     );
     // Lights
     const Lights: Array<THREE.Light> = [];
-    // Light1
-    Lights.push(new THREE.HemisphereLight(0xffffff, 0x444444));
+    // HemisphereLight
+    const HemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+    Lights.push(HemisphereLight);
     Scene.add(Lights[0]);
-    // Light2
-    Lights.push(new THREE.DirectionalLight(0xffffff));
+    // DirectionalLight
+    const DirectionalLight = new THREE.DirectionalLight(0xffffff);
+    Lights.push(DirectionalLight);
     Scene.add(Lights[1]);
+    // PointLight
+    const PointLight = new THREE.PointLight();
+    Lights.push(PointLight);
+    // RectAreaLight
+    const RectAreaLight = new THREE.RectAreaLight();
+    Lights.push(RectAreaLight);
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
