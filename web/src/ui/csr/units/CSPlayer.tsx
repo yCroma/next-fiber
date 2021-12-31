@@ -67,6 +67,11 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     const Params = {
       background: `#${Scene.background.getHexString()}`,
       lights: {
+        HemisphereLight: {
+          skyColor: `#${HemisphereLight.color.getHexString()}`,
+          groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
+          intensity: HemisphereLight.intensity,
+        },
       },
     };
     const folder1 = root.addFolder('parameter');
@@ -74,6 +79,44 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       Scene.background = new THREE.Color(value);
     });
     const folder11 = folder1.addFolder('lights');
+    // HemisphereLight
+    const folder111 = folder11.addFolder('hemisphereLight');
+    folder111
+      .addColor(Params.lights.HemisphereLight, 'skyColor')
+      .onChange((value) => {
+        Params.lights.HemisphereLight.skyColor = value;
+        Scene.remove(Lights[0]);
+        Lights[0] = new THREE.HemisphereLight(
+          value,
+          Params.lights.HemisphereLight.groundColor,
+          HemisphereLight.intensity
+        );
+        Scene.add(Lights[0]);
+      });
+    folder111
+      .addColor(Params.lights.HemisphereLight, 'groundColor')
+      .onChange((value) => {
+        Params.lights.HemisphereLight.groundColor = value;
+        Scene.remove(Lights[0]);
+        Lights[0] = new THREE.HemisphereLight(
+          Params.lights.HemisphereLight.skyColor,
+          value,
+          HemisphereLight.intensity
+        );
+        Scene.add(Lights[0]);
+      });
+    folder111
+      .add(Params.lights.HemisphereLight, 'intensity', 0, 4, 0.1)
+      .onChange((value) => {
+        Params.lights.HemisphereLight.intensity = value;
+        Scene.remove(Lights[0]);
+        Lights[0] = new THREE.HemisphereLight(
+          Params.lights.HemisphereLight.skyColor,
+          Params.lights.HemisphereLight.groundColor,
+          value
+        );
+        Scene.add(Lights[0]);
+      });
 
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
