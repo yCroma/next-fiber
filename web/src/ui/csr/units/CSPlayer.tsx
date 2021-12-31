@@ -6,7 +6,7 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GUI } from 'dat.gui';
 
-const CSRenderer = () => {
+const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
   const TargetRef = useRef(null!);
   const store = {};
   const futureProps = {
@@ -64,6 +64,7 @@ const CSRenderer = () => {
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
 
+    loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
@@ -81,12 +82,12 @@ const CSRenderer = () => {
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
     }
-    function resizeRendererToDisplaySize(
-      renderer: THREE.WebGLRenderer
-    ): boolean {
-      /**
-       * Three.js公式のレスポンシブ
-       * https://threejs.org/manual/#en/responsive
+    function loadModel(url: string): void {
+      console.log('url: ', url);
+      const Loader = new FBXLoader();
+      Loader.load(url, (model: THREE.Group) => {
+        const LoadedModel = model;
+        Scene.add(LoadedModel);
       });
     }
     console.log('Dom afterthree: ', TargetRef.current);
