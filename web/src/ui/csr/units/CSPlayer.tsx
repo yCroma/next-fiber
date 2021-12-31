@@ -47,7 +47,9 @@ const CSRenderer = () => {
     function resizeRendererToDisplaySize();
     console.log('Dom afterthree: ', TargetRef.current);
   }, []);
-  return <Box sx={{ width: '100%' }} ref={TargetRef}></Box>;
+  return (
+    <Box sx={{ width: '100%', position: 'relative' }} ref={TargetRef}></Box>
+  );
 };
 
 export default CSRenderer;
