@@ -43,7 +43,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // Lights
     const Lights: Array<THREE.Light> = [];
     // HemisphereLight
-    const HemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+    const HemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
     Lights.push(HemisphereLight);
     Scene.add(Lights[0]);
     // DirectionalLight
