@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
@@ -10,17 +10,29 @@ const CSPlayer = dynamic(() => import('../ui/csr/units/CSPlayer'), {
   ssr: false,
 });
 
-const Player: NextPage = () => {
-  const fbxurl = '/test.fbx';
+const Player: NextPage<{ fbxurl: string }> = ({
+  fbxurl,
+}: {
+  fbxurl: string;
+}) => {
   const PresetInit = {
     name: 'hello, fbx',
   };
   const [preset, SetPreset] = useState(PresetInit);
   return (
     <Stack sx={{ width: '80%', mx: 'auto' }}>
-      <CSPlayer />
+      <CSPlayer fbxurl={fbxurl} />
     </Stack>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const fbxurl = 'test.fbx';
+  return {
+    props: {
+      fbxurl,
+    },
+  };
 };
 
 export default Player;
