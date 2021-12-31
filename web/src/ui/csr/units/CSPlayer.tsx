@@ -63,6 +63,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     root.domElement.style.position = 'absolute';
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
+    // adds
+    const Params = {
+    };
 
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
