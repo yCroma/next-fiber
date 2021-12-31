@@ -19,13 +19,18 @@ const CSRenderer = () => {
     console.log('width: ', Target.clientWidth);
     console.log('width: ', Target.offsetWidth);
     // initialization
-    const width = Target.clientWidth;
-    const height = Target.clientHeight;
+    const width = Target.clientWidth | 400;
+    const height = Target.clientHeight | 300;
     // Scene
     const Scene: THREE.Scene = new THREE.Scene();
     Scene.background = new THREE.Color(0xf0f0f0);
     // Renderer
     const Renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer();
+    /**
+     * レンダラーは必ずsetSizeしてください
+     * 挙動が不安定になります
+     */
+    Renderer.setSize(width, height);
     Renderer.setPixelRatio(window.devicePixelRatio);
     Target.appendChild(Renderer.domElement);
     // Camera
@@ -59,14 +64,21 @@ const CSRenderer = () => {
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
 
+    let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
       requestAnimationFrame(animate);
-      if (resizeRendererToDisplaySize(Renderer)) {
-        const canvas = Renderer.domElement;
-        Camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      if (
+        prevWidth !== Target.clientWidth ||
+        prevHeight !== Target.clientHeight
+      ) {
+        Renderer.setSize(Target.clientWidth, Target.clientHeight);
+        const _canvas = Renderer.domElement;
+        Camera.aspect = _canvas.clientWidth / _canvas.clientHeight;
         Camera.updateMatrix();
+        [prevWidth, prevHeight] = [Target.clientWidth, Target.clientHeight];
       }
+      Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
     }
     function resizeRendererToDisplaySize(
@@ -75,21 +87,15 @@ const CSRenderer = () => {
       /**
        * Three.js公式のレスポンシブ
        * https://threejs.org/manual/#en/responsive
-       */
-      const canvas = renderer.domElement;
-      const width = Target.clientWidth;
-      const height = Target.clientHeight;
-      const needResize: boolean =
-        canvas.width !== width || canvas.height !== height;
-      if (needResize) {
-        renderer.setSize(width, height);
-      }
-      return needResize;
+      });
     }
     console.log('Dom afterthree: ', TargetRef.current);
   }, []);
   return (
-    <Box sx={{ width: '100%', position: 'relative' }} ref={TargetRef}></Box>
+    <Box
+      sx={{ width: '100%', height: '400px', position: 'relative' }}
+      ref={TargetRef}
+    ></Box>
   );
 };
 
