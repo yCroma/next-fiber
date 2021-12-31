@@ -8,16 +8,8 @@ import { GUI } from 'dat.gui';
 
 const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
   const TargetRef = useRef(null!);
-  const store = {};
-  const futureProps = {
-    fbxuri: '/test.fbx',
-  };
   useEffect(() => {
-    console.log('Ref: ', TargetRef);
-    console.log('Dom: ', TargetRef.current);
     const Target: HTMLDivElement = TargetRef.current;
-    console.log('width: ', Target.clientWidth);
-    console.log('width: ', Target.offsetWidth);
     // initialization
     const width = Target.clientWidth | 400;
     const height = Target.clientHeight | 300;
