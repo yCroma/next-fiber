@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GUI } from 'dat.gui';
+import { GUI, GUIController } from 'dat.gui';
 
 const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
   const TargetRef = useRef(null!);
