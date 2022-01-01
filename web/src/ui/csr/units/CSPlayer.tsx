@@ -86,37 +86,19 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       .addColor(Params.lights.HemisphereLight, 'skyColor')
       .onChange((value) => {
         Params.lights.HemisphereLight.skyColor = value;
-        Scene.remove(Lights[0]);
-        Lights[0] = new THREE.HemisphereLight(
-          value,
-          Params.lights.HemisphereLight.groundColor,
-          HemisphereLight.intensity
-        );
-        Scene.add(Lights[0]);
+        HemisphereLight.color = new THREE.Color(value);
       });
     folder111
       .addColor(Params.lights.HemisphereLight, 'groundColor')
       .onChange((value) => {
         Params.lights.HemisphereLight.groundColor = value;
-        Scene.remove(Lights[0]);
-        Lights[0] = new THREE.HemisphereLight(
-          Params.lights.HemisphereLight.skyColor,
-          value,
-          HemisphereLight.intensity
-        );
-        Scene.add(Lights[0]);
+        HemisphereLight.groundColor = new THREE.Color(value);
       });
     folder111
       .add(Params.lights.HemisphereLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
         Params.lights.HemisphereLight.intensity = value;
-        Scene.remove(Lights[0]);
-        Lights[0] = new THREE.HemisphereLight(
-          Params.lights.HemisphereLight.skyColor,
-          Params.lights.HemisphereLight.groundColor,
-          value
-        );
-        Scene.add(Lights[0]);
+        HemisphereLight.intensity = value;
       });
     // DirectionalLight
     const folder112 = folder11.addFolder('directionalLight');
@@ -124,24 +106,13 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       .addColor(Params.lights.DirectionalLight, 'color')
       .onChange((value) => {
         Params.lights.DirectionalLight.color = value;
-        Scene.remove(Lights[1]);
-        Lights[1] = new THREE.DirectionalLight(
-          value,
-          Params.lights.DirectionalLight.intensity
-        );
-        Scene.add(Lights[1]);
+        DirectionalLight.color = new THREE.Color(value);
       });
     folder112
       .add(Params.lights.DirectionalLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
         Params.lights.DirectionalLight.intensity = value;
-        Scene.remove(Lights[1]);
-        Lights[1] = new THREE.DirectionalLight(DirectionalLight.color, value);
-        Lights[1] = new THREE.DirectionalLight(
-          Params.lights.DirectionalLight.color,
-          value
-        );
-        Scene.add(Lights[1]);
+        DirectionalLight.intensity = value;
       });
 
     loadModel(fbxurl);
