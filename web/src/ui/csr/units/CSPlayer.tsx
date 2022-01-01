@@ -62,6 +62,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     root.domElement.style.right = `2px`;
     // adds
     const Params = {
+      preset: 'default',
       background: `#${Scene.background.getHexString()}`,
       lights: {
         HemisphereLight: {
@@ -75,6 +76,45 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         },
       },
     };
+    const Presets = {
+      default: {
+        background: '#f0f0f0',
+        lights: {
+          HemisphereLight: {
+            skyColor: '#ffffff',
+            groundColor: '#444444',
+            intensity: 1,
+          },
+          DirectionalLight: {
+            color: '#ffffff',
+            intensity: 1,
+          },
+        },
+      },
+      White: {
+        background: '#ffffff',
+        lights: {
+          HemisphereLight: {
+            skyColor: '#d6d6d6',
+            groundColor: '#f7f7f7',
+            intensity: 0.8,
+          },
+        },
+      },
+      Gray: {
+        background: '#b5b5b5',
+      },
+      Black: {
+        background: '#000000',
+        lights: {
+          HemisphereLight: {
+            skyColor: '#ffffff',
+            groundColor: '#666666',
+            intensity: 1,
+          },
+        },
+      },
+    } as const;
     const folder1 = root.addFolder('parameter');
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
