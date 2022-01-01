@@ -175,6 +175,26 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         console.error('no preset: ', name);
       }
     }
+    function datUpdateDisplayWithRecursive(folder: GUI): void {
+      // update all folder & __controllers revursively
+      /**
+       * dat.GUIはlisten()で値の監視と更新を行うことができる。
+       * がしかし、今回はすべてをonChangeを用いて処理している。
+       * よって、プログラム側から更新する必要がある。
+       * onChangeの採用理由としては、カラーコードの見た目を整えるため。
+       * （THREE.jsのcolorはデフォルトでrgbを出力する。利用したい
+       * 値は16進数であるから、前処理が必要）
+       */
+      const recursiveUpdate = (gui: GUI) => {
+        gui.__controllers.forEach((controller: GUIController) => {
+          controller.updateDisplay();
+        });
+        Object.keys(gui.__folders).forEach((key: string) => {
+          recursiveUpdate(gui.__folders[key]);
+        });
+      };
+      recursiveUpdate(folder);
+    }
     const folder1 = root.addFolder('parameter');
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
