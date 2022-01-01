@@ -66,6 +66,10 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
           intensity: HemisphereLight.intensity,
         },
+        DirectionalLight: {
+          color: `#${DirectionalLight.color.getHexString()}`,
+          intensity: DirectionalLight.intensity,
+        },
       },
     };
     const folder1 = root.addFolder('parameter');
@@ -110,6 +114,31 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           value
         );
         Scene.add(Lights[0]);
+      });
+    // DirectionalLight
+    const folder112 = folder11.addFolder('directionalLight');
+    folder112
+      .addColor(Params.lights.DirectionalLight, 'color')
+      .onChange((value) => {
+        Params.lights.DirectionalLight.color = value;
+        Scene.remove(Lights[1]);
+        Lights[1] = new THREE.DirectionalLight(
+          value,
+          Params.lights.DirectionalLight.intensity
+        );
+        Scene.add(Lights[1]);
+      });
+    folder112
+      .add(Params.lights.DirectionalLight, 'intensity', 0, 4, 0.1)
+      .onChange((value) => {
+        Params.lights.DirectionalLight.intensity = value;
+        Scene.remove(Lights[1]);
+        Lights[1] = new THREE.DirectionalLight(DirectionalLight.color, value);
+        Lights[1] = new THREE.DirectionalLight(
+          Params.lights.DirectionalLight.color,
+          value
+        );
+        Scene.add(Lights[1]);
       });
 
     loadModel(fbxurl);
