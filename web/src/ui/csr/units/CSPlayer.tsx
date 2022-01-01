@@ -61,6 +61,11 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
     // adds
+    /**
+     * 方針：
+     * 1. 各コントローラは、Paramsを参照する
+     * 2. onChange毎にupdateすること
+     */
     const Params = {
       preset: 'default',
       background: `#${Scene.background.getHexString()}`,
