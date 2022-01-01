@@ -126,6 +126,23 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         },
       },
     } as const;
+    function ReadPresetObj(obj: Object, defvalue: Object, key: string): Object {
+      /**
+       * オブジェクト型では、プリミティブ型と違い
+       * 代入時にundefinedではじかれることがあった
+       * Presetの仕様を維持するために、tryで巻き上げた
+       */
+      try {
+        // undefined はもれなく初期値を利用する
+        if (obj[key]) {
+          return { ...obj[key] };
+        } else {
+          throw new Error('初期値を返す');
+        }
+      } catch (error) {
+        return { ...defvalue[key] };
+      }
+    }
     function AdaptPreset(name: string): void {
       if (Presets[name]) {
         console.log('name: ', name);
