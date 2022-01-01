@@ -126,6 +126,38 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         },
       },
     } as const;
+    function AdaptPreset(name: string): void {
+      if (Presets[name]) {
+        console.log('name: ', name);
+        const obj = { ...Presets[name] };
+        const PresetBg = obj.background || Presets.default.background;
+        const PresetLightHemi = ReadPresetObj(
+          obj.lights,
+          Presets.default.lights,
+          'HemisphereLight'
+        );
+        const PresetLightDire = ReadPresetObj(
+          obj.lights,
+          Presets.default.lights,
+          'DirectionalLight'
+        );
+        // adapt
+        Scene.background = new THREE.Color(PresetBg);
+        Lights[0].color = new THREE.Color(PresetLightHemi.skyColor);
+        Lights[0].groundColor = new THREE.Color(PresetLightHemi.groundColor);
+        Lights[0].intensity = PresetLightHemi.intensity;
+        Lights[1].color = new THREE.Color(PresetLightDire.color);
+        Lights[1].intensity = PresetLightDire.intensity;
+        // storeを更新
+        // uiを更新する
+        Params.background = PresetBg;
+        Params.lights.HemisphereLight = PresetLightHemi;
+        Params.lights.DirectionalLight = PresetLightDire;
+        datUpdateDisplayWithRecursive(folder1);
+      } else {
+        console.error('no preset: ', name);
+      }
+    }
     const folder1 = root.addFolder('parameter');
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
