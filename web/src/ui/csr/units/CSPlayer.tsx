@@ -76,6 +76,17 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         },
       },
     };
+    // preset
+    root
+      .add(Params, 'preset', [
+        'default',
+        'Black',
+        'Gray',
+        'White',
+        'Ambient',
+        'Bright',
+      ])
+      .onChange(AdaptPreset);
     const Presets = {
       default: {
         background: '#f0f0f0',
