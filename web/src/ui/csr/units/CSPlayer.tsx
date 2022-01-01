@@ -41,15 +41,18 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       Renderer.domElement
     );
     // Lights
-    const Lights: Array<THREE.Light> = [];
     // HemisphereLight
     const HemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-    Lights.push(HemisphereLight);
-    Scene.add(Lights[0]);
     // DirectionalLight
     const DirectionalLight = new THREE.DirectionalLight(0xffffff);
-    Lights.push(DirectionalLight);
-    Scene.add(Lights[1]);
+    // Array Lights
+    const Lights: [THREE.HemisphereLight, THREE.DirectionalLight] = [
+      HemisphereLight,
+      DirectionalLight,
+    ];
+    Lights.forEach((light: THREE.Light) => {
+      Scene.add(light);
+    });
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
