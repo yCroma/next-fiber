@@ -288,6 +288,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           Model['actions']!.push(Model['mixer']!.clipAction(animation));
         });
         Scene.add(LoadedModel);
+        Model['actions'][Model.currentAction].play();
       });
     }
     console.log('Dom afterthree: ', TargetRef.current);
