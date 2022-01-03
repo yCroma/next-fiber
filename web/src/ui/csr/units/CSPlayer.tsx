@@ -60,12 +60,14 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       animations?: THREE.AnimationClip[];
       actions?: THREE.AnimationAction[];
       currentAction: number;
+      loaded: boolean;
     } = {
       model: undefined,
       mixer: undefined,
       animations: undefined,
       actions: undefined,
       currentAction: 0,
+      loaded: false,
     };
 
     // dat.GUI
@@ -287,6 +289,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Model['animations'].forEach((animation: THREE.AnimationClip) => {
           Model['actions']!.push(Model['mixer']!.clipAction(animation));
         });
+        Model['loaded'] = true;
         Scene.add(LoadedModel);
         Model['actions'][Model.currentAction].play();
       });
