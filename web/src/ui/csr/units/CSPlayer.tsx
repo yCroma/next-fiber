@@ -172,9 +172,12 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Lights[1].intensity = PresetLightDire.intensity;
         // storeを更新
         // uiを更新する
-        Params.background = PresetBg;
-        Params.lights.HemisphereLight = PresetLightHemi;
-        Params.lights.DirectionalLight = PresetLightDire;
+        Params.background = `#${Scene.background.getHexString()}`;
+        Params.lights.HemisphereLight.skyColor = `#${HemisphereLight.color.getHexString()}`;
+        Params.lights.HemisphereLight.groundColor = `#${HemisphereLight.groundColor.getHexString()}`;
+        Params.lights.HemisphereLight.intensity = HemisphereLight.intensity;
+        Params.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
+        Params.lights.DirectionalLight.intensity = DirectionalLight.intensity;
         datUpdateDisplayWithRecursive(folder1);
       } else {
         console.error('no preset: ', name);
