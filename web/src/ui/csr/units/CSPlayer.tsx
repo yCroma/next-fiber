@@ -53,6 +53,20 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     Lights.forEach((light: THREE.Light) => {
       Scene.add(light);
     });
+    // Model
+    const Model: {
+      model?: THREE.Group;
+      mixer?: THREE.AnimationMixer;
+      animations?: THREE.AnimationClip[];
+      actions?: THREE.AnimationAction[];
+      currentAction: number;
+    } = {
+      model: undefined,
+      mixer: undefined,
+      animations: undefined,
+      actions: undefined,
+      currentAction: 0,
+    };
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
@@ -266,6 +280,13 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       const Loader = new FBXLoader();
       Loader.load(url, (model: THREE.Group) => {
         const LoadedModel = model;
+        Model['model'] = model;
+        Model['mixer'] = new THREE.AnimationMixer(model);
+        Model['animations'] = model.animations;
+        Model['actions'] = [];
+        Model['animations'].forEach((animation: THREE.AnimationClip) => {
+          Model['actions']!.push(Model['mixer']!.clipAction(animation));
+        });
         Scene.add(LoadedModel);
       });
     }
