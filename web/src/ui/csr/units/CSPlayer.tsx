@@ -100,6 +100,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       },
       model: {
         velocity: 1.0,
+        scale: 1.0,
       },
     };
     // preset
@@ -270,6 +271,15 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     const folder22 = folder2.addFolder('model');
     // velocity
     const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
+    // scale
+    const folder222 = folder22
+      .add(Params.model, 'scale', 0, 2.0, 0.1)
+      .onChange((value: number) => {
+        if (Model['model']) {
+          Model['model'].scale.set(1, 1, 1);
+          Model['model'].scale.multiplyScalar(value);
+        }
+      });
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
