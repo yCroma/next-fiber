@@ -98,6 +98,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           intensity: DirectionalLight.intensity,
         },
       },
+      model: {
+        velocity: 1.0,
+      },
     };
     // preset
     root
