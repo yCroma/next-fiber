@@ -268,6 +268,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     const folder2 = root.addFolder('controllers');
     const folder21 = folder2.addFolder('camera');
     const folder22 = folder2.addFolder('model');
+    // velocity
+    const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
@@ -284,7 +286,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         [prevWidth, prevHeight] = [Target.clientWidth, Target.clientHeight];
       }
       if (Model['loaded']) {
-        Model['mixer']?.update(Clock.getDelta());
+        Model['mixer']?.update(Clock.getDelta() * Params.model.velocity);
       }
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
