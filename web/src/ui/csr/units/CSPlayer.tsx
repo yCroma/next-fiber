@@ -276,6 +276,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Camera.updateMatrix();
         [prevWidth, prevHeight] = [Target.clientWidth, Target.clientHeight];
       }
+      if (Model['loaded']) {
+        Model['mixer']?.update(Clock.getDelta());
+      }
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
     }
