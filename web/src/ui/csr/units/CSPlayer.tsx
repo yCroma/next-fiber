@@ -53,6 +53,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     Lights.forEach((light: THREE.Light) => {
       Scene.add(light);
     });
+    // Clock
+    const Clock: THREE.Clock = new THREE.Clock();
     // Model
     const Model: {
       model?: THREE.Group;
