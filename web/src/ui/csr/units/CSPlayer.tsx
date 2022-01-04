@@ -261,6 +261,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         DirectionalLight.intensity = value;
       });
 
+    // Controllers
+    const folder2 = root.addFolder('controllers');
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
