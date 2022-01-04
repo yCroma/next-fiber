@@ -33,13 +33,14 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       1000
     );
     Camera.position.set(0, 10, 50);
-    Camera.lookAt(0, 40, 0);
     Scene.add(Camera);
     // OrbitControls
     const Controls: OrbitControls = new OrbitControls(
       Camera,
       Renderer.domElement
     );
+    Controls.target = new THREE.Vector3(0, 5, 0);
+    Controls.update();
     // Lights
     // HemisphereLight
     const HemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
