@@ -264,6 +264,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // Controllers
     const folder2 = root.addFolder('controllers');
     const folder21 = folder2.addFolder('camera');
+    const folder22 = folder2.addFolder('model');
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
