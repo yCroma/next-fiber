@@ -287,6 +287,41 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // Controllers
     const folder2 = root.addFolder('controllers');
     const folder21 = folder2.addFolder('camera');
+    // lookAt
+    const folder211 = folder21.addFolder('lookAt');
+    folder211
+      .add(Params.camera.lookat, 'x', -500, 500, 1)
+      .onChange((value: number) => {
+        const vector3 = new THREE.Vector3(
+          value,
+          Params.camera.lookat.y,
+          Params.camera.lookat.z
+        );
+        Controls.target = vector3;
+        Controls.update();
+      });
+    folder211
+      .add(Params.camera.lookat, 'y', -100, 100, 1)
+      .onChange((value: number) => {
+        const vector3 = new THREE.Vector3(
+          Params.camera.lookat.x,
+          value,
+          Params.camera.lookat.z
+        );
+        Controls.target = vector3;
+        Controls.update();
+      });
+    folder211
+      .add(Params.camera.lookat, 'z', -180, 180, 1)
+      .onChange((value: number) => {
+        const vector3 = new THREE.Vector3(
+          Params.camera.lookat.x,
+          Params.camera.lookat.y,
+          value
+        );
+        Controls.target = vector3;
+        Controls.update();
+      });
     const folder22 = folder2.addFolder('model');
     // velocity
     const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
