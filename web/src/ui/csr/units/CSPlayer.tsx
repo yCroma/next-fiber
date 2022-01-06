@@ -106,6 +106,13 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           intensity: DirectionalLight.intensity,
         },
       },
+      camera: {
+        lookat: {
+          x: 0,
+          y: 5,
+          z: 0,
+        },
+      },
       model: {
         velocity: 1.0,
         scale: 1.0,
