@@ -249,6 +249,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
+    // Lights
     const folder11 = folder1.addFolder('lights');
     // HemisphereLight
     const folder111 = folder11.addFolder('hemisphereLight');
@@ -287,6 +288,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
 
     // Controllers
     const folder2 = root.addFolder('controllers');
+    // Camera
     const folder21 = folder2.addFolder('camera');
     // lookAt
     const folder211 = folder21.addFolder('lookAt');
