@@ -283,6 +283,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           Model['model'].scale.multiplyScalar(value);
         }
       });
+
+    // Helpers
+    const folder3 = root.addFolder('helpers');
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
