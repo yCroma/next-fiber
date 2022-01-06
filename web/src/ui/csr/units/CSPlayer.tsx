@@ -72,6 +72,10 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       currentAction: 0,
       loaded: false,
     };
+    // Helpers
+    // axesHelper
+    const axesHelper = new THREE.AxesHelper(1000);
+    Scene.add(axesHelper);
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
@@ -104,6 +108,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         scale: 1.0,
       },
       helpers: {
+        axes: true,
       },
     };
     // preset
@@ -286,6 +291,14 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
 
     // Helpers
     const folder3 = root.addFolder('helpers');
+    // axesHelper
+    folder3.add(Params.helpers, 'axes').onChange((value: boolean) => {
+      if (value) {
+        Scene.add(axesHelper);
+      } else {
+        Scene.remove(axesHelper);
+      }
+    });
     loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
