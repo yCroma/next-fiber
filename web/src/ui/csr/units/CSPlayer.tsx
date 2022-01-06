@@ -103,6 +103,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         velocity: 1.0,
         scale: 1.0,
       },
+      helpers: {
+      },
     };
     // preset
     root
