@@ -76,6 +76,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // axesHelper
     const axesHelper = new THREE.AxesHelper(1000);
     Scene.add(axesHelper);
+    // cameraHelper
+    const cameraHelper = new THREE.CameraHelper(Camera);
+    // Scene.add(cameraHelper);
 
     // dat.GUI
     const root = new GUI({ autoPlace: false });
@@ -109,6 +112,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
       },
       helpers: {
         axes: true,
+        camera: false,
       },
     };
     // preset
@@ -297,6 +301,14 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Scene.add(axesHelper);
       } else {
         Scene.remove(axesHelper);
+      }
+    });
+    // cameraHelper
+    folder3.add(Params.helpers, 'camera').onChange((value: boolean) => {
+      if (value) {
+        Scene.add(cameraHelper);
+      } else {
+        Scene.remove(cameraHelper);
       }
     });
     loadModel(fbxurl);
