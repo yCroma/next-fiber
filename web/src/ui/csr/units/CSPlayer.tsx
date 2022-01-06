@@ -112,6 +112,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           y: 5,
           z: 0,
         },
+        reset: resetTarget,
       },
       model: {
         velocity: 1.0,
@@ -322,6 +323,22 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Controls.target = vector3;
         Controls.update();
       });
+    // lookat reset
+    folder211.add(Params.camera, 'reset');
+
+    function resetTarget() {
+      Camera.position.set(0, 10, 50);
+      Controls.target = new THREE.Vector3(0, 5, 0);
+      Controls.update();
+      /**
+       * JSONは明示的に更新しないと、updateできなかった
+       * いじらないよう注意
+       */
+      Params.camera.lookat.x = 0;
+      Params.camera.lookat.y = 5;
+      Params.camera.lookat.z = 0;
+      datUpdateDisplayWithRecursive(folder211);
+    }
     const folder22 = folder2.addFolder('model');
     // velocity
     const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
