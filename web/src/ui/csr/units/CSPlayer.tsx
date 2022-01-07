@@ -238,6 +238,11 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           Presets.default.lights,
           'DirectionalLight'
         );
+        const PresetLightAmb = ReadPresetObj(
+          obj.lights,
+          Presets.default.lights,
+          'AmbientLight'
+        );
         // adapt
         Scene.background = new THREE.Color(PresetBg);
         Lights[0].color = new THREE.Color(PresetLightHemi.skyColor);
@@ -245,6 +250,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Lights[0].intensity = PresetLightHemi.intensity;
         Lights[1].color = new THREE.Color(PresetLightDire.color);
         Lights[1].intensity = PresetLightDire.intensity;
+        Lights[2].color = new THREE.Color(PresetLightAmb.color);
+        Lights[2].intensity = PresetLightAmb.intensity;
         // storeを更新
         // uiを更新する
         Params.background = `#${Scene.background.getHexString()}`;
@@ -253,6 +260,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Params.lights.HemisphereLight.intensity = HemisphereLight.intensity;
         Params.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
         Params.lights.DirectionalLight.intensity = DirectionalLight.intensity;
+        Params.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
+        Params.lights.AmbientLight.intensity = AmbientLight.intensity;
         datUpdateDisplayWithRecursive(folder1);
       } else {
         console.error('no preset: ', name);
