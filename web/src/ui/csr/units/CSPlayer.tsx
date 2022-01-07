@@ -478,7 +478,6 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Model['actions'][Model.currentAction].play();
       });
     }
-    console.log('Dom afterthree: ', TargetRef.current);
   }, []);
   return (
     <Box
