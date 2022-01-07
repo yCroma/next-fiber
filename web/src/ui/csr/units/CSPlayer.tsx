@@ -154,6 +154,10 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
             color: '#ffffff',
             intensity: 1,
           },
+          AmbientLight: {
+            color: '#ffffff',
+            intensity: 0,
+          },
         },
       },
       White: {
