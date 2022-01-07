@@ -478,7 +478,18 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         Model['actions'][Model.currentAction].play();
       });
     }
-  }, []);
+
+    return function reloadPlayer() {
+      /**
+       * 命令的なDOM操作で、初期に宣言している要素を
+       * 削除して、再レンダリングで表示されたものを
+       * 残すようにしている。俺の力と時間の精一杯
+       */
+      Target.querySelector('canvas')?.remove();
+      // declared class for datGUI
+      Target.querySelector('.dg')?.remove();
+    };
+  }, [mode]);
   return (
     <Box
       sx={{ width: '100%', height: '400px', position: 'relative' }}
