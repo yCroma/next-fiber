@@ -121,8 +121,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           x: 0,
           y: 5,
           z: 0,
+          reset: resetTarget,
         },
-        reset: resetTarget,
       },
       model: {
         velocity: 1.0,
@@ -395,7 +395,7 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Controls.update();
       });
     // lookat reset
-    folder211.add(Params.camera, 'reset');
+    folder211.add(Params.camera.lookat, 'reset');
 
     function resetTarget() {
       Camera.position.set(0, 10, 50);
