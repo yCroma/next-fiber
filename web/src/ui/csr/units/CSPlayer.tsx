@@ -398,7 +398,6 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     folder211.add(Params.camera.lookat, 'reset');
 
     function resetTarget() {
-      Camera.position.set(0, 10, 50);
       Controls.target = new THREE.Vector3(0, 5, 0);
       Controls.update();
       /**
