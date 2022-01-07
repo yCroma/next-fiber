@@ -92,8 +92,8 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     // adds
     /**
      * 方針：
-     * 1. 各コントローラは、Paramsを参照する
-     * 2. onChange毎にupdateすること
+     * 1. .listen()が適応できない値はParamsを介して操作する
+     * 2. Paramsに関連する値はonChange毎にupdateすること(.listen()でないと自動で更新されないから)
      */
     const Params = {
       preset: 'default',
