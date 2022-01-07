@@ -108,6 +108,10 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           color: `#${DirectionalLight.color.getHexString()}`,
           intensity: DirectionalLight.intensity,
         },
+        AmbientLight: {
+          color: `#${AmbientLight.color.getHexString()}`,
+          intensity: AmbientLight.intensity,
+        },
       },
       camera: {
         lookat: {
