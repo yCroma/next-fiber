@@ -296,6 +296,20 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         Params.lights.DirectionalLight.intensity = value;
         DirectionalLight.intensity = value;
       });
+    // AmbientLight
+    const folder113 = folder11.addFolder('ambientLight');
+    folder113
+      .addColor(Params.lights.AmbientLight, 'color')
+      .onChange((value) => {
+        Params.lights.AmbientLight.color = value;
+        AmbientLight.color = new THREE.Color(value);
+      });
+    folder113
+      .add(Params.lights.AmbientLight, 'intensity', 0, 4, 0.1)
+      .onChange((value) => {
+        Params.lights.AmbientLight.intensity = value;
+        AmbientLight.intensity = value;
+      });
 
     // Controllers
     const folder2 = root.addFolder('controllers');
