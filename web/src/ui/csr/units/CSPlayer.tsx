@@ -114,6 +114,9 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
         },
       },
       camera: {
+        position: {
+          reset: resetPosition,
+        },
         lookat: {
           x: 0,
           y: 5,
@@ -346,6 +349,16 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
     const folder2 = root.addFolder('controllers');
     // Camera
     const folder21 = folder2.addFolder('camera');
+    // position
+    const folder210 = folder21.addFolder('position');
+    folder210.add(Camera.position, 'x').listen();
+    folder210.add(Camera.position, 'y').listen();
+    folder210.add(Camera.position, 'z').listen();
+    folder210.add(Params.camera.position, 'reset');
+    function resetPosition() {
+      Camera.position.set(0, 10, 50);
+      Controls.update();
+    }
     // lookAt
     const folder211 = folder21.addFolder('lookAt');
     folder211
