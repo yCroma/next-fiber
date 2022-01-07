@@ -183,6 +183,28 @@ const CSRenderer = ({ fbxurl }: { fbxurl: string }) => {
           },
         },
       },
+      Ambient: {
+        background: '#e5e5e5',
+        lights: {
+          HemisphereLight: {
+            /**
+             * ReadPresetObj のバグで、undefinedにすることができず
+             * 初期値が空になるということが起こった
+             * 明示的に宣言しておく
+             */
+            skyColor: '#ffffff',
+            groundColor: '#444444',
+            intensity: 0,
+          },
+          DirectionalLight: {
+            intensity: 0,
+          },
+          AmbientLight: {
+            color: '#ffffff',
+            intensity: 1,
+          },
+        },
+      },
     } as const;
     function ReadPresetObj(obj: Object, defvalue: Object, key: string): Object {
       /**
