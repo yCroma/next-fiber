@@ -42,7 +42,11 @@ const Player: NextPage<{ title: string; comment: string; fbxurl: string }> = ({
       <SwitchPlayGroundMode dispatchMode={dispatchMode} />
       <Typography variant="h3">{title}</Typography>
       <Typography variant="body1">{comment}</Typography>
-      <CSPlayer fbxurl={fbxurl} />
+      {mode['mode'] === 'edit' && <CSPlayer fbxurl={fbxurl} mode={'edit'} />}
+      {mode['mode'] === 'play' && <CSPlayer fbxurl={fbxurl} mode={'play'} />}
+      {mode['mode'] === 'upload' && (
+        <CSPlayer fbxurl={fbxurl} mode={'upload'} />
+      )}
     </Stack>
   );
 };
