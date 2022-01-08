@@ -2,6 +2,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useReducer, useState } from 'react';
 
+import SwitchPlayGroundMode from '../ui/parts/SwitchPlayGroundMode';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import { Typography } from '@mui/material';
@@ -38,6 +39,7 @@ const Player: NextPage<{ title: string; comment: string; fbxurl: string }> = ({
 
   return (
     <Stack sx={{ width: '80%', mx: 'auto' }}>
+      <SwitchPlayGroundMode dispatchMode={dispatchMode} />
       <Typography variant="h3">{title}</Typography>
       <Typography variant="body1">{comment}</Typography>
       <CSPlayer fbxurl={fbxurl} />
