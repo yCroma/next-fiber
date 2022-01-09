@@ -337,6 +337,7 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         Scene.remove(cameraHelper);
       }
     });
+    watchModelLoad();
     let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
@@ -356,6 +357,22 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       }
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
+    }
+    function watchModelLoad() {
+      /**
+       * Params宣言時では、モデルの読み込みは完了していない
+       * よって、モデルの読み込みが完了時に、関連する情報を
+       * 初期化する必要がある
+       * そのための関数
+       */
+      const finishLoad = Model['model'] && Model['animations'];
+      if (!finishLoad) {
+        requestAnimationFrame(watchModelLoad);
+      } else {
+        console.log('Loaded Model: ', Model);
+        Scene.add(Model['model'] as THREE.Group);
+        Model['actions']![0].play();
+      }
     }
   }, []);
   return (
