@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GUI, GUIController } from 'dat.gui';
+import clone from 'clone';
 
 const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
   const TargetRef = useRef(null!);
@@ -229,23 +230,11 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     function AdaptPreset(name: string): void {
       if (Presets[name]) {
         console.log('name: ', name);
-        const obj = { ...Presets[name] };
-        const PresetBg = obj.background || Presets.default.background;
-        const PresetLightHemi = ReadPresetObj(
-          obj.lights,
-          Presets.default.lights,
-          'HemisphereLight'
-        );
-        const PresetLightDire = ReadPresetObj(
-          obj.lights,
-          Presets.default.lights,
-          'DirectionalLight'
-        );
-        const PresetLightAmb = ReadPresetObj(
-          obj.lights,
-          Presets.default.lights,
-          'AmbientLight'
-        );
+        const obj = clone(Presets[name]);
+        const PresetBg = obj.background;
+        const PresetLightHemi = clone(obj.lights.HemisphereLight);
+        const PresetLightDire = clone(obj.lights.DirectionalLight);
+        const PresetLightAmb = clone(obj.lights.AmbientLight);
         // adapt
         Scene.background = new THREE.Color(PresetBg);
         Lights[0].color = new THREE.Color(PresetLightHemi.skyColor);
