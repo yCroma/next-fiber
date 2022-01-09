@@ -138,6 +138,18 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     root.domElement.style.position = 'absolute';
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
+    // folders
+    const folder1 = root.addFolder('parameter');
+    const folder2 = root.addFolder('controllers');
+    const folder3 = root.addFolder('helpers');
+    const folder11 = folder1.addFolder('lights');
+    const folder111 = folder11.addFolder('hemisphereLight');
+    const folder112 = folder11.addFolder('directionalLight');
+    const folder113 = folder11.addFolder('ambientLight');
+    const folder21 = folder2.addFolder('camera');
+    const folder22 = folder2.addFolder('model');
+    const folder210 = folder21.addFolder('position');
+    const folder211 = folder21.addFolder('lookAt');
     function AdaptPreset(name: string): void {
       if (Presets[name]) {
         console.log('name: ', name);
@@ -170,14 +182,11 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         console.error('no preset: ', name);
       }
     }
-    const folder1 = root.addFolder('parameter');
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
     // Lights
-    const folder11 = folder1.addFolder('lights');
     // HemisphereLight
-    const folder111 = folder11.addFolder('hemisphereLight');
     folder111
       .addColor(Params.lights.HemisphereLight, 'skyColor')
       .onChange((value) => {
@@ -197,7 +206,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         HemisphereLight.intensity = value;
       });
     // DirectionalLight
-    const folder112 = folder11.addFolder('directionalLight');
     folder112
       .addColor(Params.lights.DirectionalLight, 'color')
       .onChange((value) => {
@@ -211,7 +219,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         DirectionalLight.intensity = value;
       });
     // AmbientLight
-    const folder113 = folder11.addFolder('ambientLight');
     folder113
       .addColor(Params.lights.AmbientLight, 'color')
       .onChange((value) => {
@@ -226,11 +233,8 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       });
 
     // Controllers
-    const folder2 = root.addFolder('controllers');
     // Camera
-    const folder21 = folder2.addFolder('camera');
     // position
-    const folder210 = folder21.addFolder('position');
     folder210.add(Camera.position, 'x').listen();
     folder210.add(Camera.position, 'y').listen();
     folder210.add(Camera.position, 'z').listen();
@@ -240,7 +244,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       Controls.update();
     }
     // lookAt
-    const folder211 = folder21.addFolder('lookAt');
     folder211
       .add(Params.camera.lookat, 'x', -500, 500, 1)
       .onChange((value: number) => {
@@ -289,7 +292,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       Params.camera.lookat.z = 0;
       datUpdateDisplayWithRecursive(folder211);
     }
-    const folder22 = folder2.addFolder('model');
     // velocity
     const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     // scale
@@ -303,7 +305,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       });
 
     // Helpers
-    const folder3 = root.addFolder('helpers');
     // axesHelper
     folder3.add(Params.helpers, 'axes').onChange((value: boolean) => {
       if (value) {
