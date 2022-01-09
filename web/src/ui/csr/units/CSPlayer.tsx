@@ -77,12 +77,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     const cameraHelper = new THREE.CameraHelper(Camera);
     // Scene.add(cameraHelper);
 
-    // dat.GUI
-    const root = new GUI({ autoPlace: false });
-    Target.appendChild(root.domElement);
-    root.domElement.style.position = 'absolute';
-    root.domElement.style.top = '2px';
-    root.domElement.style.right = `2px`;
     // adds
     /**
      * 方針：
@@ -138,6 +132,12 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         'Bright',
       ])
       .onChange(AdaptPreset);
+    // dat.GUI
+    const root = new GUI({ autoPlace: false });
+    Target.appendChild(root.domElement);
+    root.domElement.style.position = 'absolute';
+    root.domElement.style.top = '2px';
+    root.domElement.style.right = `2px`;
     function AdaptPreset(name: string): void {
       if (Presets[name]) {
         console.log('name: ', name);
