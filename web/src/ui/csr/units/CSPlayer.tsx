@@ -245,9 +245,9 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     folder211.add(Params.camera.lookat, 'reset');
 
     // velocity
-    const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
+    folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     // scale
-    const folder222 = folder22
+    folder22
       .add(Params.model, 'scale', 0, 2.0, 0.1)
       .onChange((value: number) => {
         if (Model['model']) {
