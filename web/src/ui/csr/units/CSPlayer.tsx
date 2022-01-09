@@ -68,14 +68,7 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       actions?: THREE.AnimationAction[];
       currentAction: number;
       loaded: boolean;
-    } = {
-      model: undefined,
-      mixer: undefined,
-      animations: undefined,
-      actions: undefined,
-      currentAction: 0,
-      loaded: false,
-    };
+    } = LoadModel(fbxurl);
     // Helpers
     // axesHelper
     const axesHelper = new THREE.AxesHelper(1000);
@@ -344,7 +337,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         Scene.remove(cameraHelper);
       }
     });
-    loadModel(fbxurl);
     let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
@@ -364,23 +356,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       }
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
-    }
-    function loadModel(url: string): void {
-      console.log('url: ', url);
-      const Loader = new FBXLoader();
-      Loader.load(url, (model: THREE.Group) => {
-        const LoadedModel = model;
-        Model['model'] = model;
-        Model['mixer'] = new THREE.AnimationMixer(model);
-        Model['animations'] = model.animations;
-        Model['actions'] = [];
-        Model['animations'].forEach((animation: THREE.AnimationClip) => {
-          Model['actions']!.push(Model['mixer']!.clipAction(animation));
-        });
-        Model['loaded'] = true;
-        Scene.add(LoadedModel);
-        Model['actions'][Model.currentAction].play();
-      });
     }
   }, []);
   return (
@@ -504,4 +479,41 @@ function datUpdateDisplayWithRecursive(folder: GUI): void {
     });
   };
   recursiveUpdate(folder);
+}
+
+function LoadModel(url: string): {
+  model?: THREE.Group;
+  mixer?: THREE.AnimationMixer;
+  animations?: Array<THREE.AnimationClip>;
+  actions?: Array<THREE.AnimationAction>;
+  loaded: boolean;
+} {
+  const Loader = new FBXLoader();
+  const obj: {
+    model?: THREE.Group;
+    mixer?: THREE.AnimationMixer;
+    animations?: Array<THREE.AnimationClip>;
+    actions?: Array<THREE.AnimationAction>;
+    loaded: boolean;
+  } = {
+    model: undefined,
+    mixer: undefined,
+    animations: undefined,
+    actions: undefined,
+    loaded: false,
+  };
+  Loader.load(url, (model: THREE.Group) => {
+    const mixer: THREE.AnimationMixer = new THREE.AnimationMixer(model);
+    const animations: Array<THREE.AnimationClip> = model.animations;
+    const actions: Array<THREE.AnimationAction> = [];
+    animations.forEach((animation: THREE.AnimationClip) => {
+      actions.push(mixer.clipAction(animation));
+    });
+    obj['model'] = model;
+    obj['mixer'] = mixer;
+    obj['animations'] = animations;
+    obj['actions'] = actions;
+    obj['loaded'] = true;
+  });
+  return obj;
 }
