@@ -150,38 +150,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     const folder22 = folder2.addFolder('model');
     const folder210 = folder21.addFolder('position');
     const folder211 = folder21.addFolder('lookAt');
-    function AdaptPreset(name: string): void {
-      if (Presets[name]) {
-        console.log('name: ', name);
-        const obj = clone(Presets[name]);
-        const PresetBg = obj.background;
-        const PresetLightHemi = clone(obj.lights.HemisphereLight);
-        const PresetLightDire = clone(obj.lights.DirectionalLight);
-        const PresetLightAmb = clone(obj.lights.AmbientLight);
-        // adapt
-        Scene.background = new THREE.Color(PresetBg);
-        Lights[0].color = new THREE.Color(PresetLightHemi.skyColor);
-        Lights[0].groundColor = new THREE.Color(PresetLightHemi.groundColor);
-        Lights[0].intensity = PresetLightHemi.intensity;
-        Lights[1].color = new THREE.Color(PresetLightDire.color);
-        Lights[1].intensity = PresetLightDire.intensity;
-        Lights[2].color = new THREE.Color(PresetLightAmb.color);
-        Lights[2].intensity = PresetLightAmb.intensity;
-        // storeを更新
-        // uiを更新する
-        Params.background = `#${Scene.background.getHexString()}`;
-        Params.lights.HemisphereLight.skyColor = `#${HemisphereLight.color.getHexString()}`;
-        Params.lights.HemisphereLight.groundColor = `#${HemisphereLight.groundColor.getHexString()}`;
-        Params.lights.HemisphereLight.intensity = HemisphereLight.intensity;
-        Params.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
-        Params.lights.DirectionalLight.intensity = DirectionalLight.intensity;
-        Params.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
-        Params.lights.AmbientLight.intensity = AmbientLight.intensity;
-        datUpdateDisplayWithRecursive(folder1);
-      } else {
-        console.error('no preset: ', name);
-      }
-    }
     folder1.addColor(Params, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
@@ -239,10 +207,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     folder210.add(Camera.position, 'y').listen();
     folder210.add(Camera.position, 'z').listen();
     folder210.add(Params.camera.position, 'reset');
-    function resetPosition() {
-      Camera.position.set(0, 10, 50);
-      Controls.update();
-    }
     // lookAt
     folder211
       .add(Params.camera.lookat, 'x', -500, 500, 1)
@@ -280,18 +244,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
     // lookat reset
     folder211.add(Params.camera.lookat, 'reset');
 
-    function resetTarget() {
-      Controls.target = new THREE.Vector3(0, 5, 0);
-      Controls.update();
-      /**
-       * JSONは明示的に更新しないと、updateできなかった
-       * いじらないよう注意
-       */
-      Params.camera.lookat.x = 0;
-      Params.camera.lookat.y = 5;
-      Params.camera.lookat.z = 0;
-      datUpdateDisplayWithRecursive(folder211);
-    }
     // velocity
     const folder221 = folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     // scale
@@ -356,6 +308,54 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         console.log('Loaded Model: ', Model);
         Scene.add(Model['model'] as THREE.Group);
         Model['actions']![0].play();
+      }
+    }
+    function resetPosition() {
+      Camera.position.set(0, 10, 50);
+      Controls.update();
+    }
+    function resetTarget() {
+      Controls.target = new THREE.Vector3(0, 5, 0);
+      Controls.update();
+      /**
+       * JSONは明示的に更新しないと、updateできなかった
+       * いじらないよう注意
+       */
+      Params.camera.lookat.x = 0;
+      Params.camera.lookat.y = 5;
+      Params.camera.lookat.z = 0;
+      datUpdateDisplayWithRecursive(folder211);
+    }
+    function AdaptPreset(name: string): void {
+      if (Presets[name]) {
+        console.log('name: ', name);
+        const obj = clone(Presets[name]);
+        const PresetBg = obj.background;
+        const PresetLightHemi = clone(obj.lights.HemisphereLight);
+        const PresetLightDire = clone(obj.lights.DirectionalLight);
+        const PresetLightAmb = clone(obj.lights.AmbientLight);
+        // adapt
+        Scene.background = new THREE.Color(PresetBg);
+        Lights[0].color = new THREE.Color(PresetLightHemi.skyColor);
+        Lights[0].groundColor = new THREE.Color(PresetLightHemi.groundColor);
+        Lights[0].intensity = PresetLightHemi.intensity;
+        Lights[1].color = new THREE.Color(PresetLightDire.color);
+        Lights[1].intensity = PresetLightDire.intensity;
+        Lights[2].color = new THREE.Color(PresetLightAmb.color);
+        Lights[2].intensity = PresetLightAmb.intensity;
+        // storeを更新
+        // uiを更新する
+        Params.background = `#${Scene.background.getHexString()}`;
+        Params.lights.HemisphereLight.skyColor = `#${HemisphereLight.color.getHexString()}`;
+        Params.lights.HemisphereLight.groundColor = `#${HemisphereLight.groundColor.getHexString()}`;
+        Params.lights.HemisphereLight.intensity = HemisphereLight.intensity;
+        Params.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
+        Params.lights.DirectionalLight.intensity = DirectionalLight.intensity;
+        Params.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
+        Params.lights.AmbientLight.intensity = AmbientLight.intensity;
+        datUpdateDisplayWithRecursive(folder1);
+      } else {
+        console.error('no preset: ', name);
       }
     }
   }, []);
