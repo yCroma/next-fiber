@@ -145,71 +145,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
         'Bright',
       ])
       .onChange(AdaptPreset);
-    const Presets = {
-      default: {
-        background: '#f0f0f0',
-        lights: {
-          HemisphereLight: {
-            skyColor: '#ffffff',
-            groundColor: '#444444',
-            intensity: 1,
-          },
-          DirectionalLight: {
-            color: '#ffffff',
-            intensity: 1,
-          },
-          AmbientLight: {
-            color: '#ffffff',
-            intensity: 0,
-          },
-        },
-      },
-      White: {
-        background: '#ffffff',
-        lights: {
-          HemisphereLight: {
-            skyColor: '#d6d6d6',
-            groundColor: '#f7f7f7',
-            intensity: 0.8,
-          },
-        },
-      },
-      Gray: {
-        background: '#b5b5b5',
-      },
-      Black: {
-        background: '#000000',
-        lights: {
-          HemisphereLight: {
-            skyColor: '#ffffff',
-            groundColor: '#666666',
-            intensity: 1,
-          },
-        },
-      },
-      Ambient: {
-        background: '#e5e5e5',
-        lights: {
-          HemisphereLight: {
-            /**
-             * ReadPresetObj のバグで、undefinedにすることができず
-             * 初期値が空になるということが起こった
-             * 明示的に宣言しておく
-             */
-            skyColor: '#ffffff',
-            groundColor: '#444444',
-            intensity: 0,
-          },
-          DirectionalLight: {
-            intensity: 0,
-          },
-          AmbientLight: {
-            color: '#ffffff',
-            intensity: 1,
-          },
-        },
-      },
-    } as const;
     function ReadPresetObj(obj: Object, defvalue: Object, key: string): Object {
       /**
        * オブジェクト型では、プリミティブ型と違い
@@ -477,3 +412,96 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
 };
 
 export default CSRenderer;
+const DefaultPreset = {
+  default: {
+    background: '#f0f0f0',
+    lights: {
+      HemisphereLight: {
+        skyColor: '#ffffff',
+        groundColor: '#444444',
+        intensity: 1,
+      },
+      DirectionalLight: {
+        color: '#ffffff',
+        intensity: 1,
+      },
+      AmbientLight: {
+        color: '#ffffff',
+        intensity: 0,
+      },
+    },
+  },
+  White: {
+    background: '#ffffff',
+    lights: {
+      HemisphereLight: {
+        skyColor: '#d6d6d6',
+        groundColor: '#f7f7f7',
+        intensity: 0.8,
+      },
+      DirectionalLight: {
+        color: '#ffffff',
+        intensity: 1,
+      },
+      AmbientLight: {
+        color: '#ffffff',
+        intensity: 0,
+      },
+    },
+  },
+  Gray: {
+    background: '#b5b5b5',
+    lights: {
+      HemisphereLight: {
+        skyColor: '#ffffff',
+        groundColor: '#444444',
+        intensity: 1,
+      },
+      DirectionalLight: {
+        color: '#ffffff',
+        intensity: 1,
+      },
+      AmbientLight: {
+        color: '#ffffff',
+        intensity: 0,
+      },
+    },
+  },
+  Black: {
+    background: '#000000',
+    lights: {
+      HemisphereLight: {
+        skyColor: '#ffffff',
+        groundColor: '#666666',
+        intensity: 1,
+      },
+      DirectionalLight: {
+        color: '#ffffff',
+        intensity: 1,
+      },
+      AmbientLight: {
+        color: '#ffffff',
+        intensity: 0,
+      },
+    },
+  },
+  Ambient: {
+    background: '#e5e5e5',
+    lights: {
+      HemisphereLight: {
+        skyColor: '#ffffff',
+        groundColor: '#444444',
+        intensity: 0,
+      },
+      DirectionalLight: {
+        color: '#ffffff',
+        intensity: 0,
+      },
+      AmbientLight: {
+        color: '#ffffff',
+        intensity: 1,
+      },
+    },
+  },
+};
+
