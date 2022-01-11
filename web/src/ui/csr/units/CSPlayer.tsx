@@ -66,7 +66,6 @@ const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
       mixer?: THREE.AnimationMixer;
       animations?: THREE.AnimationClip[];
       actions?: THREE.AnimationAction[];
-      currentAction: number;
       loaded: boolean;
     } = LoadModel(fbxurl);
     // Helpers
