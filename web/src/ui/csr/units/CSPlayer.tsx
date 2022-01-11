@@ -460,6 +460,28 @@ const DefaultPreset = {
   },
 };
 
+const DefaultClip = {
+  default: {
+    animation: {
+      action: 0,
+      start: 0,
+      end: 0,
+    },
+    camera: {
+      lookat: {
+        x: 0,
+        y: 5,
+        z: 0,
+      },
+      position: {
+        x: 0,
+        y: 10,
+        z: 50,
+      },
+    },
+    preset: Object.keys(DefaultPreset)[0],
+  },
+};
 function datUpdateDisplayWithRecursive(folder: GUI): void {
   // update all folder & __controllers revursively
   /**
