@@ -397,6 +397,42 @@ const CSRenderer = ({
         console.error('no preset: ', name);
       }
     }
+    function AdaptClip(name: string): void {
+      if (Params['clips'][name]) {
+        const obj = clone(Params['clips'][name]);
+        const ClipPosition = clone(obj['camera']['position']);
+        const ClipTarget = clone(obj['camera']['lookat']);
+        const PresetName = clone(obj['preset']);
+        /**
+         * positionはlisten()で直接値が監視されている
+         * よって、他の値のように明示的に更新する必要
+         * がない
+         */
+        Camera.position.set(ClipPosition.x, ClipPosition.y, ClipPosition.z);
+        Controls.target = new THREE.Vector3(
+          ClipTarget.x,
+          ClipTarget.y,
+          ClipTarget.z
+        );
+        Controls.update();
+        AdaptPreset(PresetName);
+        // Params の start, end, camera, clipを適応
+        /**
+         * object をコピーしない理由は、
+         * controllerとclipの値が完全に
+         * 一致していないから
+         */
+        Params.controllers.animation.start = obj['animation']['start'];
+        Params.controllers.animation.end = obj['animation']['end'];
+        Params.controllers.camera.lookat.x = obj['camera']['lookat']['x'];
+        Params.controllers.camera.lookat.y = obj['camera']['lookat']['y'];
+        Params.controllers.camera.lookat.z = obj['camera']['lookat']['z'];
+        // controller に対して命令
+        datUpdateDisplayWithRecursive(folder2);
+      } else {
+        console.error('no clip: ', name);
+      }
+    }
   }, []);
   return (
     <Box
