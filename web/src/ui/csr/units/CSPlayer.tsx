@@ -155,24 +155,31 @@ const CSRenderer = ({
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
     // folders
-    const folder1 = root.addFolder('parameter');
+    // clips
     const folder2 = root.addFolder('controllers');
+    const folder5 = root.addFolder('clips');
+    folder5.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
+    const folder51 = folder5.addFolder('parameter');
+    const folder4 = root.addFolder('presets');
     const folder3 = root.addFolder('helpers');
-    const folder11 = folder1.addFolder('lights');
-    const folder111 = folder11.addFolder('hemisphereLight');
-    const folder112 = folder11.addFolder('directionalLight');
-    const folder113 = folder11.addFolder('ambientLight');
+    const folder20 = folder2.addFolder('animation');
     const folder21 = folder2.addFolder('camera');
     const folder22 = folder2.addFolder('model');
     const folder210 = folder21.addFolder('position');
     const folder211 = folder21.addFolder('lookAt');
-    folder1.addColor(Params, 'background').onChange((value) => {
     // Presets
     folder4
       .add(Params, 'preset', Object.keys(Params.presets))
       .onChange(AdaptPreset);
+    const folder1 = folder4.addFolder('parameter');
+    folder1.addColor(Params.parameters, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
+    const folder11 = folder1.addFolder('lights');
+    const folder111 = folder11.addFolder('hemisphereLight');
+    const folder112 = folder11.addFolder('directionalLight');
+    const folder113 = folder11.addFolder('ambientLight');
+    // controllers
     // animation
     /**
      * モデルの読み込みの影響を受けるため、
