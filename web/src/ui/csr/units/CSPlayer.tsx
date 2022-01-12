@@ -335,7 +335,10 @@ const CSRenderer = ({
       } else {
         console.log('Loaded Model: ', Model);
         Scene.add(Model['model'] as THREE.Group);
-        Model['actions']![0].play();
+        // 初期値の設定
+        const DefaultClip = Params['clips']['default']['animation'];
+        Params['actions'] = IndexNums(Model!['actions']);
+        Model['actions']![DefaultClip['action']].play();
       }
     }
     function resetPosition() {
