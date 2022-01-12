@@ -16,6 +16,7 @@ const CSRenderer = ({
   mode: string;
   settings?: Object;
 }) => {
+  const TargetRef = useRef<HTMLDivElement>(null!);
   useEffect(() => {
     const Target: HTMLDivElement = TargetRef.current;
     // initialization
