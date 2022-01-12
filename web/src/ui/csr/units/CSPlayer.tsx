@@ -148,17 +148,6 @@ const CSRenderer = ({
         camera: false,
       },
     };
-    // preset
-    root
-      .add(Params, 'preset', [
-        'default',
-        'Black',
-        'Gray',
-        'White',
-        'Ambient',
-        'Bright',
-      ])
-      .onChange(AdaptPreset);
     // dat.GUI
     const root = new GUI({ autoPlace: false });
     Target.appendChild(root.domElement);
@@ -178,6 +167,10 @@ const CSRenderer = ({
     const folder210 = folder21.addFolder('position');
     const folder211 = folder21.addFolder('lookAt');
     folder1.addColor(Params, 'background').onChange((value) => {
+    // Presets
+    folder4
+      .add(Params, 'preset', Object.keys(Params.presets))
+      .onChange(AdaptPreset);
       Scene.background = new THREE.Color(value);
     });
     // Lights
