@@ -173,6 +173,11 @@ const CSRenderer = ({
       .onChange(AdaptPreset);
       Scene.background = new THREE.Color(value);
     });
+    // animation
+    /**
+     * モデルの読み込みの影響を受けるため、
+     * watchModelLoad()内部で宣言している
+     */
     // Lights
     // HemisphereLight
     folder111
@@ -264,8 +269,6 @@ const CSRenderer = ({
     // lookat reset
     folder211.add(Params.controllers.camera.lookat, 'reset');
 
-    // velocity
-    folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     // scale
     folder22
       .add(Params.controllers.model, 'scale', 0, 2.0, 0.1)
@@ -347,6 +350,67 @@ const CSRenderer = ({
           DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
         }
         Params.controllers.animation.end = DefaultClip.end;
+        // datの初期化
+        // for controllers
+        // action
+        folder20
+          .add(Params['controllers']['animation'], 'action', [0])
+          .onChange((value: number) => {
+            /**
+             * TASK:
+             * 複数のアニメーションの切り替え
+             */
+          });
+        // pause
+        Params['controllers']['animation']['play'] = true;
+        folder20
+          .add(Model['actions'][DefaultClip['action']], 'paused')
+          .listen();
+
+        // time
+        /**
+         * TASK:
+         * onChangeは動的値の監視に向かない
+         * listenでは複数の処理ができない
+         * 両方を満たすやり方を模索する
+         */
+        folder20
+          .add(Model['actions'][DefaultClip['action']], 'time')
+          .min(0)
+          .max(Model['animations'][DefaultClip['action']].duration)
+          .step(0.001)
+          .listen();
+        // velocity
+        /**
+         * TASK:
+         * 速度調整が面倒くさいから、数字を列挙する
+         * なお、datGUI側が勝手にソーティングするた
+         * め、対策が必要
+         */
+        folder20.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
+        // for clip
+        // action
+        folder51
+          .add(Params['controllers']['animation'], 'action', [0])
+          .onChange((value: number) => {
+            /**
+             * TASK:
+             * 複数のアニメーションの切り替え
+             */
+          });
+        // start
+        folder51
+          .add(Params.controllers.animation, 'start')
+          .min(Params.controllers.animation.start)
+          .max(Params.controllers.animation.end)
+          .step(0.001);
+        // end
+        folder51
+          .add(Params.controllers.animation, 'end')
+          .min(Params.controllers.animation.start)
+          .max(Params.controllers.animation.end)
+          .step(0.001);
+        datUpdateDisplayWithRecursive(folder20);
       }
     }
     function resetPosition() {
