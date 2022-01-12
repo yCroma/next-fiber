@@ -182,47 +182,47 @@ const CSRenderer = ({
     // Lights
     // HemisphereLight
     folder111
-      .addColor(Params.lights.HemisphereLight, 'skyColor')
+      .addColor(Params.parameters.lights.HemisphereLight, 'skyColor')
       .onChange((value) => {
-        Params.lights.HemisphereLight.skyColor = value;
+        Params.parameters.lights.HemisphereLight.skyColor = value;
         HemisphereLight.color = new THREE.Color(value);
       });
     folder111
-      .addColor(Params.lights.HemisphereLight, 'groundColor')
+      .addColor(Params.parameters.lights.HemisphereLight, 'groundColor')
       .onChange((value) => {
-        Params.lights.HemisphereLight.groundColor = value;
+        Params.parameters.lights.HemisphereLight.groundColor = value;
         HemisphereLight.groundColor = new THREE.Color(value);
       });
     folder111
-      .add(Params.lights.HemisphereLight, 'intensity', 0, 4, 0.1)
+      .add(Params.parameters.lights.HemisphereLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
-        Params.lights.HemisphereLight.intensity = value;
+        Params.parameters.lights.HemisphereLight.intensity = value;
         HemisphereLight.intensity = value;
       });
     // DirectionalLight
     folder112
-      .addColor(Params.lights.DirectionalLight, 'color')
+      .addColor(Params.parameters.lights.DirectionalLight, 'color')
       .onChange((value) => {
-        Params.lights.DirectionalLight.color = value;
+        Params.parameters.lights.DirectionalLight.color = value;
         DirectionalLight.color = new THREE.Color(value);
       });
     folder112
-      .add(Params.lights.DirectionalLight, 'intensity', 0, 4, 0.1)
+      .add(Params.parameters.lights.DirectionalLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
-        Params.lights.DirectionalLight.intensity = value;
+        Params.parameters.lights.DirectionalLight.intensity = value;
         DirectionalLight.intensity = value;
       });
     // AmbientLight
     folder113
-      .addColor(Params.lights.AmbientLight, 'color')
+      .addColor(Params.parameters.lights.AmbientLight, 'color')
       .onChange((value) => {
-        Params.lights.AmbientLight.color = value;
+        Params.parameters.lights.AmbientLight.color = value;
         AmbientLight.color = new THREE.Color(value);
       });
     folder113
-      .add(Params.lights.AmbientLight, 'intensity', 0, 4, 0.1)
+      .add(Params.parameters.lights.AmbientLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
-        Params.lights.AmbientLight.intensity = value;
+        Params.parameters.lights.AmbientLight.intensity = value;
         AmbientLight.intensity = value;
       });
 
@@ -232,49 +232,49 @@ const CSRenderer = ({
     folder210.add(Camera.position, 'x').listen();
     folder210.add(Camera.position, 'y').listen();
     folder210.add(Camera.position, 'z').listen();
-    folder210.add(Params.camera.position, 'reset');
+    folder210.add(Params.controllers.camera.position, 'reset');
     // lookAt
     folder211
-      .add(Params.camera.lookat, 'x', -500, 500, 1)
+      .add(Params.controllers.camera.lookat, 'x', -500, 500, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
           value,
-          Params.camera.lookat.y,
-          Params.camera.lookat.z
+          Params.controllers.camera.lookat.y,
+          Params.controllers.camera.lookat.z
         );
         Controls.target = vector3;
         Controls.update();
       });
     folder211
-      .add(Params.camera.lookat, 'y', -100, 100, 1)
+      .add(Params.controllers.camera.lookat, 'y', -100, 100, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
-          Params.camera.lookat.x,
+          Params.controllers.camera.lookat.x,
           value,
-          Params.camera.lookat.z
+          Params.controllers.camera.lookat.z
         );
         Controls.target = vector3;
         Controls.update();
       });
     folder211
-      .add(Params.camera.lookat, 'z', -180, 180, 1)
+      .add(Params.controllers.camera.lookat, 'z', -180, 180, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
-          Params.camera.lookat.x,
-          Params.camera.lookat.y,
+          Params.controllers.camera.lookat.x,
+          Params.controllers.camera.lookat.y,
           value
         );
         Controls.target = vector3;
         Controls.update();
       });
     // lookat reset
-    folder211.add(Params.camera.lookat, 'reset');
+    folder211.add(Params.controllers.camera.lookat, 'reset');
 
     // velocity
     folder22.add(Params.model, 'velocity', 0, 2, 0.01);
     // scale
     folder22
-      .add(Params.model, 'scale', 0, 2.0, 0.1)
+      .add(Params.controllers.model, 'scale', 0, 2.0, 0.1)
       .onChange((value: number) => {
         if (Model['model']) {
           Model['model'].scale.set(1, 1, 1);
@@ -371,14 +371,17 @@ const CSRenderer = ({
         Lights[2].intensity = PresetLightAmb.intensity;
         // storeを更新
         // uiを更新する
-        Params.background = `#${Scene.background.getHexString()}`;
-        Params.lights.HemisphereLight.skyColor = `#${HemisphereLight.color.getHexString()}`;
-        Params.lights.HemisphereLight.groundColor = `#${HemisphereLight.groundColor.getHexString()}`;
-        Params.lights.HemisphereLight.intensity = HemisphereLight.intensity;
-        Params.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
-        Params.lights.DirectionalLight.intensity = DirectionalLight.intensity;
-        Params.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
-        Params.lights.AmbientLight.intensity = AmbientLight.intensity;
+        Params.parameters.background = `#${Scene.background.getHexString()}`;
+        Params.parameters.lights.HemisphereLight.skyColor = `#${HemisphereLight.color.getHexString()}`;
+        Params.parameters.lights.HemisphereLight.groundColor = `#${HemisphereLight.groundColor.getHexString()}`;
+        Params.parameters.lights.HemisphereLight.intensity =
+          HemisphereLight.intensity;
+        Params.parameters.lights.DirectionalLight.color = `#${DirectionalLight.color.getHexString()}`;
+        Params.parameters.lights.DirectionalLight.intensity =
+          DirectionalLight.intensity;
+        Params.parameters.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
+        Params.parameters.lights.AmbientLight.intensity =
+          AmbientLight.intensity;
         datUpdateDisplayWithRecursive(folder1);
       } else {
         console.error('no preset: ', name);
