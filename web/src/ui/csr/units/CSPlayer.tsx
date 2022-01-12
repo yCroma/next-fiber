@@ -95,37 +95,51 @@ const CSRenderer = ({
      * 2. Paramsに関連する値はonChange毎にupdateすること(.listen()でないと自動で更新されないから)
      */
     const Params = {
-      preset: 'default',
-      background: `#${Scene.background.getHexString()}`,
-      lights: {
-        HemisphereLight: {
-          skyColor: `#${HemisphereLight.color.getHexString()}`,
-          groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
-          intensity: HemisphereLight.intensity,
+      preset: Settings['clips'][Object.keys(Settings['clips'])[0]]['preset'],
+      presets: Settings!['presets'],
+      clip: Object.keys(Settings['clips'])[0],
+      clips: Settings['clips'],
+      controllers: {
+        animation: {
+          action: 0,
+          time: 0,
+          start: 0,
+          end: 0,
+          velocity: 0,
         },
-        DirectionalLight: {
-          color: `#${DirectionalLight.color.getHexString()}`,
-          intensity: DirectionalLight.intensity,
+        camera: {
+          position: {
+            reset: resetPosition,
+          },
+          lookat: {
+            x: 0,
+            y: 5,
+            z: 0,
+            reset: resetTarget,
+          },
         },
-        AmbientLight: {
-          color: `#${AmbientLight.color.getHexString()}`,
-          intensity: AmbientLight.intensity,
+        model: {
+          velocity: 1.0,
+          scale: 1.0,
         },
       },
-      camera: {
-        position: {
-          reset: resetPosition,
+      parameters: {
+        background: `#${Scene.background.getHexString()}`,
+        lights: {
+          HemisphereLight: {
+            skyColor: `#${HemisphereLight.color.getHexString()}`,
+            groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
+            intensity: HemisphereLight.intensity,
+          },
+          DirectionalLight: {
+            color: `#${DirectionalLight.color.getHexString()}`,
+            intensity: DirectionalLight.intensity,
+          },
+          AmbientLight: {
+            color: `#${AmbientLight.color.getHexString()}`,
+            intensity: AmbientLight.intensity,
+          },
         },
-        lookat: {
-          x: 0,
-          y: 5,
-          z: 0,
-          reset: resetTarget,
-        },
-      },
-      model: {
-        velocity: 1.0,
-        scale: 1.0,
       },
       helpers: {
         axes: true,
