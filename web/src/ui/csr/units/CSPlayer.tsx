@@ -339,19 +339,27 @@ const CSRenderer = ({
       }
     }
     function resetPosition() {
-      Camera.position.set(0, 10, 50);
+      const currentClip = clone(Params['clips'][Params['clip']]);
+      const ClipPosition = currentClip['camera']['position'];
+      Camera.position.set(ClipPosition.x, ClipPosition.y, ClipPosition.z);
       Controls.update();
     }
     function resetTarget() {
-      Controls.target = new THREE.Vector3(0, 5, 0);
+      const currentClip = clone(Params['clips'][Params['clip']]);
+      const ClipTarget = currentClip['camera']['lookat'];
+      Controls.target = new THREE.Vector3(
+        ClipTarget.x,
+        ClipTarget.y,
+        ClipTarget.z
+      );
       Controls.update();
       /**
        * JSONは明示的に更新しないと、updateできなかった
        * いじらないよう注意
        */
-      Params.camera.lookat.x = 0;
-      Params.camera.lookat.y = 5;
-      Params.camera.lookat.z = 0;
+      Params.controllers.camera.lookat.x = ClipTarget.x;
+      Params.controllers.camera.lookat.y = ClipTarget.y;
+      Params.controllers.camera.lookat.z = ClipTarget.z;
       datUpdateDisplayWithRecursive(folder211);
     }
     function AdaptPreset(name: string): void {
