@@ -7,8 +7,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GUI, GUIController } from 'dat.gui';
 import clone from 'clone';
 
-const CSRenderer = ({ fbxurl, mode }: { fbxurl: string; mode: string }) => {
-  const TargetRef = useRef(null!);
+const CSRenderer = ({
+  fbxurl,
+  mode,
+  settings,
+}: {
+  fbxurl: string;
+  mode: string;
+  settings?: Object;
+}) => {
   useEffect(() => {
     const Target: HTMLDivElement = TargetRef.current;
     // initialization
