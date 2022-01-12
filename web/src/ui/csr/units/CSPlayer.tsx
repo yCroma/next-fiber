@@ -339,6 +339,14 @@ const CSRenderer = ({
         const DefaultClip = Params['clips']['default']['animation'];
         Params['actions'] = IndexNums(Model!['actions']);
         Model['actions']![DefaultClip['action']].play();
+        /**
+         * default の end: 0 の時は、nopresetかdefaultなのかわからない
+         * よって、1度durationを確認のために上書き
+         */
+        if (DefaultClip.end === 0) {
+          DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
+        }
+        Params.controllers.animation.end = DefaultClip.end;
       }
     }
     function resetPosition() {
