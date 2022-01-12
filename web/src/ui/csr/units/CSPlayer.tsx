@@ -94,6 +94,7 @@ const CSRenderer = ({
      * 1. .listen()が適応できない値はParamsを介して操作する
      * 2. Paramsに関連する値はonChange毎にupdateすること(.listen()でないと自動で更新されないから)
      * 3. action, preset 共に初期値のindexは0
+     * 4. modelに関するもの(actions等)は、watchModelLoad()で初期化
      */
     const Params = {
       preset: Settings['clips'][Object.keys(Settings['clips'])[0]]['preset'],
