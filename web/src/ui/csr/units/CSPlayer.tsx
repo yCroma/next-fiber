@@ -84,6 +84,11 @@ const CSRenderer = ({
     // Scene.add(cameraHelper);
 
     // adds
+    // preset
+    const Settings = settings || {
+      clips: clone(DefaultClip),
+      presets: clone(DefaultPreset),
+    };
     /**
      * 方針：
      * 1. .listen()が適応できない値はParamsを介して操作する
