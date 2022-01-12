@@ -327,7 +327,21 @@ const CSRenderer = ({
         [prevWidth, prevHeight] = [Target.clientWidth, Target.clientHeight];
       }
       if (Model['loaded']) {
-        Model['mixer']?.update(Clock.getDelta() * Params.model.velocity);
+        const currentTime =
+          Model['actions'][Params.controllers.animation.action].time;
+        const startTime = Params['controllers']['animation']['start'];
+        const endTime = Params['controllers']['animation']['end'];
+        const adjustStart = currentTime - startTime <= 0;
+        const dispatchReset = endTime - currentTime <= 0;
+        if (adjustStart) {
+          Model['mixer']?.setTime(startTime);
+        }
+        if (dispatchReset) {
+          Model['mixer']?.setTime(startTime);
+        }
+        Model['mixer']?.update(
+          Clock.getDelta() * Params.controllers.model.velocity
+        );
       }
       Renderer.render(Scene, Camera);
       //console.log('Target clientWidth: ', Target.clientWidth);
