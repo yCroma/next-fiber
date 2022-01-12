@@ -363,9 +363,9 @@ const CSRenderer = ({
       datUpdateDisplayWithRecursive(folder211);
     }
     function AdaptPreset(name: string): void {
-      if (Presets[name]) {
+      if (Params['presets'][name]) {
         console.log('name: ', name);
-        const obj = clone(Presets[name]);
+        const obj = clone(Params['presets'][name]);
         const PresetBg = obj.background;
         const PresetLightHemi = clone(obj.lights.HemisphereLight);
         const PresetLightDire = clone(obj.lights.DirectionalLight);
