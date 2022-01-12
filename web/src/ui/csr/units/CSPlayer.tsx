@@ -300,6 +300,14 @@ const CSRenderer = ({
         Scene.remove(cameraHelper);
       }
     });
+    /**
+     * Paramsは変わる可能性がある。
+     * 直下のadapt関数で初期化は行われている。
+     * Adapt後のParamsを信じろ
+     */
+    // AdaptDefaultSettings
+    AdaptPreset(Params['preset']);
+    AdaptClip(Params['clip']);
     watchModelLoad();
     let prevWidth: number, prevHeight: number;
     animate();
