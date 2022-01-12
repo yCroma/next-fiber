@@ -615,3 +615,15 @@ function LoadModel(url: string): {
   });
   return obj;
 }
+function IndexNums(array: Array<any>): Array<number> {
+  /**
+   * 戻り値のイメージ：
+   * [0, 1, 2, 3, ,,,]
+   * 配列の長さ分のindexを代入した配列を返す
+   */
+  const returnArray = [];
+  for (let i: number = 0; i < array.length; i++) {
+    returnArray.push(i);
+  }
+  return returnArray;
+}
