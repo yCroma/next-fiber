@@ -11,10 +11,12 @@ const CSRenderer = ({
   fbxurl,
   mode,
   settings,
+  setSettings,
 }: {
   fbxurl: string;
   mode: string;
   settings?: Object;
+  setSettings?: Function;
 }) => {
   const TargetRef = useRef<HTMLDivElement>(null!);
   useEffect(() => {
@@ -371,6 +373,14 @@ const CSRenderer = ({
          */
         if (DefaultClip.end === 0) {
           DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
+        }
+        /**
+         * デフォルトクリップでendの値を確認すると
+         * 読み込まれていない可能性がある値はなくなる
+         * よって、ここで読み込みが完全に完了する
+         */
+        if (setSettings) {
+          setSettings(clone(Settings));
         }
         Params.controllers.animation.end = DefaultClip.end;
         // datの初期化
