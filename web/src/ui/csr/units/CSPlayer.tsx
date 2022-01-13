@@ -361,7 +361,8 @@ const CSRenderer = ({
         console.log('Loaded Model: ', Model);
         Scene.add(Model['model'] as THREE.Group);
         // 初期値の設定
-        const DefaultClip = Params['clips']['default']['animation'];
+        const DefaultClipName = Object.keys(Params['clips'])[0];
+        const DefaultClip = Params['clips'][DefaultClipName]['animation'];
         Params['actions'] = IndexNums(Model!['actions']);
         Model['actions']![DefaultClip['action']].play();
         /**
