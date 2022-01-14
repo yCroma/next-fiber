@@ -634,7 +634,7 @@ const DefaultPreset = {
       },
       DirectionalLight: {
         color: '#ffffff',
-        intensity: 0,
+        intensity: 0.7,
       },
       AmbientLight: {
         color: '#ffffff',
