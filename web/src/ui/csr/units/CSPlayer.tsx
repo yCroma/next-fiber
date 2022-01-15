@@ -158,77 +158,82 @@ const CSRenderer = ({
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
     // folders
+    // h1(hierarky 1)
+    const folder1 = root.addFolder('controllers');
+    const folder2 = root.addFolder('clips');
+    const folder3 = root.addFolder('presets');
+    const folder4 = root.addFolder('helpers');
+    // h2(hierarky 2)
+    // controllers
+    const folder11 = folder1.addFolder('animation');
+    const folder12 = folder1.addFolder('camera');
+    const folder13 = folder1.addFolder('model');
     // clips
-    const folder2 = root.addFolder('controllers');
-    const folder5 = root.addFolder('clips');
-    folder5.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
-    const folder51 = folder5.addFolder('parameter');
-    const folder4 = root.addFolder('presets');
-    const folder3 = root.addFolder('helpers');
-    const folder20 = folder2.addFolder('animation');
-    const folder21 = folder2.addFolder('camera');
-    const folder22 = folder2.addFolder('model');
-    const folder210 = folder21.addFolder('position');
-    const folder211 = folder21.addFolder('lookAt');
-    // Presets
-    folder4
+    folder2.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
+    const folder51 = folder2.addFolder('parameter');
+    // presets
+    folder3
       .add(Params, 'preset', Object.keys(Params.presets))
       .onChange(AdaptPreset);
-    const folder1 = folder4.addFolder('parameter');
-    folder1.addColor(Params.parameters, 'background').onChange((value) => {
+    const folder31 = folder3.addFolder('parameter');
+    // h3(hierarky 3)
+    // controllers
+    const folder120 = folder12.addFolder('position');
+    const folder121 = folder12.addFolder('lookAt');
+    // h4(hierarky 4)
+    // presets
+    folder31.addColor(Params.parameters, 'background').onChange((value) => {
       Scene.background = new THREE.Color(value);
     });
-    const folder11 = folder1.addFolder('lights');
-    const folder111 = folder11.addFolder('hemisphereLight');
-    const folder112 = folder11.addFolder('directionalLight');
-    const folder113 = folder11.addFolder('ambientLight');
-    // controllers
-    // animation
+    const folder311 = folder31.addFolder('lights');
+    const folder3111 = folder311.addFolder('hemisphereLight');
+    const folder3112 = folder311.addFolder('directionalLight');
+    const folder3113 = folder311.addFolder('ambientLight');
     /**
      * モデルの読み込みの影響を受けるため、
      * watchModelLoad()内部で宣言している
      */
     // Lights
     // HemisphereLight
-    folder111
+    folder3111
       .addColor(Params.parameters.lights.HemisphereLight, 'skyColor')
       .onChange((value) => {
         Params.parameters.lights.HemisphereLight.skyColor = value;
         HemisphereLight.color = new THREE.Color(value);
       });
-    folder111
+    folder3111
       .addColor(Params.parameters.lights.HemisphereLight, 'groundColor')
       .onChange((value) => {
         Params.parameters.lights.HemisphereLight.groundColor = value;
         HemisphereLight.groundColor = new THREE.Color(value);
       });
-    folder111
+    folder3111
       .add(Params.parameters.lights.HemisphereLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
         Params.parameters.lights.HemisphereLight.intensity = value;
         HemisphereLight.intensity = value;
       });
     // DirectionalLight
-    folder112
+    folder3112
       .addColor(Params.parameters.lights.DirectionalLight, 'color')
       .onChange((value) => {
         Params.parameters.lights.DirectionalLight.color = value;
         DirectionalLight.color = new THREE.Color(value);
       });
-    folder112
+    folder3112
       .add(Params.parameters.lights.DirectionalLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
         Params.parameters.lights.DirectionalLight.intensity = value;
         DirectionalLight.intensity = value;
       });
     // AmbientLight
-    folder113
+    folder3113
       .addColor(Params.parameters.lights.AmbientLight, 'color')
       .onChange((value) => {
         Params.parameters.lights.AmbientLight.color = value;
         AmbientLight.color = new THREE.Color(value);
       });
-    folder113
+    folder3113
       .add(Params.parameters.lights.AmbientLight, 'intensity', 0, 4, 0.1)
       .onChange((value) => {
         Params.parameters.lights.AmbientLight.intensity = value;
@@ -238,12 +243,12 @@ const CSRenderer = ({
     // Controllers
     // Camera
     // position
-    folder210.add(Camera.position, 'x').listen();
-    folder210.add(Camera.position, 'y').listen();
-    folder210.add(Camera.position, 'z').listen();
-    folder210.add(Params.controllers.camera.position, 'reset');
+    folder120.add(Camera.position, 'x').listen();
+    folder120.add(Camera.position, 'y').listen();
+    folder120.add(Camera.position, 'z').listen();
+    folder120.add(Params.controllers.camera.position, 'reset');
     // lookAt
-    folder211
+    folder121
       .add(Params.controllers.camera.lookat, 'x', -500, 500, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
@@ -254,7 +259,7 @@ const CSRenderer = ({
         Controls.target = vector3;
         Controls.update();
       });
-    folder211
+    folder121
       .add(Params.controllers.camera.lookat, 'y', -100, 100, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
@@ -265,7 +270,7 @@ const CSRenderer = ({
         Controls.target = vector3;
         Controls.update();
       });
-    folder211
+    folder121
       .add(Params.controllers.camera.lookat, 'z', -180, 180, 1)
       .onChange((value: number) => {
         const vector3 = new THREE.Vector3(
@@ -277,10 +282,10 @@ const CSRenderer = ({
         Controls.update();
       });
     // lookat reset
-    folder211.add(Params.controllers.camera.lookat, 'reset');
+    folder121.add(Params.controllers.camera.lookat, 'reset');
 
     // scale
-    folder22
+    folder13
       .add(Params.controllers.model, 'scale', 0, 2.0, 0.1)
       .onChange((value: number) => {
         if (Model['model']) {
@@ -291,7 +296,7 @@ const CSRenderer = ({
 
     // Helpers
     // axesHelper
-    folder3.add(Params.helpers, 'axes').onChange((value: boolean) => {
+    folder4.add(Params.helpers, 'axes').onChange((value: boolean) => {
       if (value) {
         Scene.add(axesHelper);
       } else {
@@ -299,7 +304,7 @@ const CSRenderer = ({
       }
     });
     // cameraHelper
-    folder3.add(Params.helpers, 'camera').onChange((value: boolean) => {
+    folder4.add(Params.helpers, 'camera').onChange((value: boolean) => {
       if (value) {
         Scene.add(cameraHelper);
       } else {
@@ -386,7 +391,7 @@ const CSRenderer = ({
         // datの初期化
         // for controllers
         // action
-        folder20
+        folder11
           .add(Params['controllers']['animation'], 'action', [0])
           .onChange((value: number) => {
             /**
@@ -395,8 +400,8 @@ const CSRenderer = ({
              */
           });
         // pause
-        Params['controllers']['animation']['play'] = true;
-        folder20
+        // Params['controllers']['animation']['play'] = true;
+        folder11
           .add(Model['actions'][DefaultClip['action']], 'paused')
           .listen();
 
@@ -407,7 +412,7 @@ const CSRenderer = ({
          * listenでは複数の処理ができない
          * 両方を満たすやり方を模索する
          */
-        folder20
+        folder11
           .add(Model['actions'][DefaultClip['action']], 'time')
           .min(0)
           .max(Model['animations'][DefaultClip['action']].duration)
@@ -420,7 +425,7 @@ const CSRenderer = ({
          * なお、datGUI側が勝手にソーティングするた
          * め、対策が必要
          */
-        folder20.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
+        folder11.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
         // for clip
         // action
         folder51
@@ -443,7 +448,7 @@ const CSRenderer = ({
           .min(Params.controllers.animation.start)
           .max(Params.controllers.animation.end)
           .step(0.001);
-        datUpdateDisplayWithRecursive(folder20);
+        datUpdateDisplayWithRecursive(folder11);
       }
     }
     function resetPosition() {
@@ -468,7 +473,7 @@ const CSRenderer = ({
       Params.controllers.camera.lookat.x = ClipTarget.x;
       Params.controllers.camera.lookat.y = ClipTarget.y;
       Params.controllers.camera.lookat.z = ClipTarget.z;
-      datUpdateDisplayWithRecursive(folder211);
+      datUpdateDisplayWithRecursive(folder121);
     }
     function AdaptPreset(name: string): void {
       if (Params['presets'][name]) {
@@ -500,7 +505,7 @@ const CSRenderer = ({
         Params.parameters.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
         Params.parameters.lights.AmbientLight.intensity =
           AmbientLight.intensity;
-        datUpdateDisplayWithRecursive(folder1);
+        datUpdateDisplayWithRecursive(folder31);
       } else {
         console.error('no preset: ', name);
       }
@@ -536,7 +541,7 @@ const CSRenderer = ({
         Params.controllers.camera.lookat.y = obj['camera']['lookat']['y'];
         Params.controllers.camera.lookat.z = obj['camera']['lookat']['z'];
         // controller に対して命令
-        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder1);
       } else {
         console.error('no clip: ', name);
       }
