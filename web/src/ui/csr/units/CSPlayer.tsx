@@ -400,7 +400,6 @@ const CSRenderer = ({
              */
           });
         // pause
-        // Params['controllers']['animation']['play'] = true;
         folder11
           .add(Model['actions'][DefaultClip['action']], 'paused')
           .listen();
