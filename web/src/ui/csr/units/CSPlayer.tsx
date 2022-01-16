@@ -623,7 +623,8 @@ const CSRenderer = ({
         Params.parameters.lights.AmbientLight.color = `#${AmbientLight.color.getHexString()}`;
         Params.parameters.lights.AmbientLight.intensity =
           AmbientLight.intensity;
-        datUpdateDisplayWithRecursive(folder31);
+        datUpdateDisplayWithRecursive(folder3);
+        datUpdateDisplayWithRecursive(folder52);
       } else {
         console.error('no preset: ', name);
       }
