@@ -11,12 +11,12 @@ const CSRenderer = ({
   fbxurl,
   mode,
   settings,
-  setSettings,
+  settingsRef,
 }: {
   fbxurl: string;
   mode: string;
   settings?: Object;
-  setSettings?: Function;
+  settingsRef?: Object;
 }) => {
   const TargetRef = useRef<HTMLDivElement>(null!);
   useEffect(() => {
@@ -347,6 +347,12 @@ const CSRenderer = ({
     let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
+      if (settingsRef) {
+        settingsRef.current! = {
+          clips: clone(Params['clips']),
+          presets: clone(Params['presets']),
+        };
+      }
       requestAnimationFrame(animate);
       if (
         prevWidth !== Target.clientWidth ||
@@ -411,6 +417,11 @@ const CSRenderer = ({
         // AdaptDefaultSettings
         AdaptPreset(Params['preset']);
         AdaptClip(Params['clip']);
+        if (settingsRef) {
+          settingsRef!.current = {
+            clips: clone(Params['clips']),
+            presets: clone(Params['presets']),
+          };
         }
         Params.controllers.animation.end = DefaultClip.end;
         // datの初期化
