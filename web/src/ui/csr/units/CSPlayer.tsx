@@ -152,6 +152,7 @@ const CSRenderer = ({
       },
       editors: {
         presets: {
+          updatePreset: updatePreset,
         },
       },
     };
@@ -330,6 +331,7 @@ const CSRenderer = ({
     const editPresetController = folder52
       .add(Params, 'preset', Object.keys(Params['presets']))
       .onChange(AdaptPreset);
+    folder52.add(Params['editors']['presets'], 'updatePreset');
     /**
      * Paramsは変わる可能性がある。
      * 直下のadapt関数で初期化は行われている。
@@ -493,6 +495,37 @@ const CSRenderer = ({
       Params.controllers.camera.lookat.z = ClipTarget.z;
       datUpdateDisplayWithRecursive(folder121);
     }
+    function updatePreset() {
+      const currentPreset = Params['preset'];
+      if (Params['presets'][currentPreset]) {
+        const background = `#${Scene.background.getHexString()}`;
+        const hemisphereLight = {
+          skyColor: `#${HemisphereLight.color.getHexString()}`,
+          groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
+          intensity: HemisphereLight.intensity,
+        };
+        const directionalLight = {
+          color: `#${DirectionalLight.color.getHexString()}`,
+          intensity: DirectionalLight.intensity,
+        };
+        const ambientLight = {
+          color: `#${AmbientLight.color.getHexString()}`,
+          intensity: AmbientLight.intensity,
+        };
+
+        const newPreset = {
+          background,
+          lights: {
+            HemisphereLight: clone(hemisphereLight),
+            DirectionalLight: clone(directionalLight),
+            AmbientLight: clone(ambientLight),
+          },
+        };
+        // preset の値を更新
+        Params['presets'][currentPreset] = clone(newPreset);
+      }
+    }
+      }
     function AdaptPreset(name: string): void {
       if (Params['presets'][name]) {
         console.log('name: ', name);
