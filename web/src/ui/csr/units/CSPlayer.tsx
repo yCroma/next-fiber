@@ -153,10 +153,17 @@ const CSRenderer = ({
     };
     // dat.GUI
     const root = new GUI({ autoPlace: false });
+    const editGUI = new GUI({ autoPlace: false });
     Target.appendChild(root.domElement);
     root.domElement.style.position = 'absolute';
     root.domElement.style.top = '2px';
     root.domElement.style.right = `2px`;
+    if (mode === 'edit' || mode === 'upload') {
+      Target.appendChild(editGUI.domElement);
+      editGUI.domElement.style.position = 'absolute';
+      editGUI.domElement.style.top = '2px';
+      editGUI.domElement.style.left = `2px`;
+    }
     // folders
     // h1(hierarky 1)
     const folder1 = root.addFolder('controllers');
