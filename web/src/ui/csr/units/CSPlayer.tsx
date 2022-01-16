@@ -153,6 +153,7 @@ const CSRenderer = ({
       editors: {
         presets: {
           updatePreset: updatePreset,
+          removePreset: removePreset,
         },
       },
     };
@@ -332,6 +333,7 @@ const CSRenderer = ({
       .add(Params, 'preset', Object.keys(Params['presets']))
       .onChange(AdaptPreset);
     folder52.add(Params['editors']['presets'], 'updatePreset');
+    folder52.add(Params['editors']['presets'], 'removePreset');
     /**
      * Paramsは変わる可能性がある。
      * 直下のadapt関数で初期化は行われている。
@@ -525,7 +527,19 @@ const CSRenderer = ({
         Params['presets'][currentPreset] = clone(newPreset);
       }
     }
+    function removePreset() {
+      if (Object.keys(Params['presets']).length <= 1) {
+        return;
       }
+      const currentPreset = Params['preset'];
+      if (Params['presets'][currentPreset]) {
+        delete Params['presets'][currentPreset];
+        updateDropdown(PresetController, Params['presets']);
+        updateDropdown(editPresetController, Params['presets']);
+        Params['preset'] = Object.keys(Params['presets'])[0];
+        AdaptPreset(Params['preset']);
+      }
+    }
     function AdaptPreset(name: string): void {
       if (Params['presets'][name]) {
         console.log('name: ', name);
