@@ -152,6 +152,8 @@ const CSRenderer = ({
       },
       editors: {
         presets: {
+          addPreset: addPreset,
+          addName: '',
           updatePreset: updatePreset,
           removePreset: removePreset,
         },
@@ -334,6 +336,9 @@ const CSRenderer = ({
       .onChange(AdaptPreset);
     folder52.add(Params['editors']['presets'], 'updatePreset');
     folder52.add(Params['editors']['presets'], 'removePreset');
+    const folder521 = folder52.addFolder('addpreset');
+    folder521.add(Params['editors']['presets'], 'addName').name('name');
+    folder521.add(Params['editors']['presets'], 'addPreset');
     /**
      * Paramsは変わる可能性がある。
      * 直下のadapt関数で初期化は行われている。
@@ -496,6 +501,46 @@ const CSRenderer = ({
       Params.controllers.camera.lookat.y = ClipTarget.y;
       Params.controllers.camera.lookat.z = ClipTarget.z;
       datUpdateDisplayWithRecursive(folder121);
+    }
+    function addPreset() {
+      const newName = Params['editors']['presets']['addName'];
+      const diffname = !(newName in Params['presets']);
+      const allowAppend = newName.length > 0;
+      if (diffname && allowAppend) {
+        const background = `#${Scene.background.getHexString()}`;
+        const hemisphereLight = {
+          skyColor: `#${HemisphereLight.color.getHexString()}`,
+          groundColor: `#${HemisphereLight.groundColor.getHexString()}`,
+          intensity: HemisphereLight.intensity,
+        };
+        const directionalLight = {
+          color: `#${DirectionalLight.color.getHexString()}`,
+          intensity: DirectionalLight.intensity,
+        };
+        const ambientLight = {
+          color: `#${AmbientLight.color.getHexString()}`,
+          intensity: AmbientLight.intensity,
+        };
+
+        const newPreset = {
+          background,
+          lights: {
+            HemisphereLight: clone(hemisphereLight),
+            DirectionalLight: clone(directionalLight),
+            AmbientLight: clone(ambientLight),
+          },
+        };
+        Params['presets'][newName] = clone(newPreset);
+        // for GUI
+        Params['preset'] = newName;
+        AdaptPreset(Params['preset']);
+        updateDropdown(PresetController, Params['presets']);
+        updateDropdown(editPresetController, Params['presets']);
+        // reset
+        Params['editors']['presets']['addName'] = '';
+        datUpdateDisplayWithRecursive(folder3);
+        datUpdateDisplayWithRecursive(folder52);
+      }
     }
     function updatePreset() {
       const currentPreset = Params['preset'];
