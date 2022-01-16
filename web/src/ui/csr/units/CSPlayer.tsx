@@ -802,6 +802,18 @@ function datUpdateDisplayWithRecursive(folder: GUI): void {
   recursiveUpdate(folder);
 }
 
+function updateDropdown(controller: GUIController, obj: Object) {
+  const list = Object.keys(obj);
+  console.log('list: ', list);
+  let innerHTMLStr = '';
+  list.forEach((tag: string) => {
+    const menuStr = `<option value= "${tag}"> ${tag} </option>`;
+    innerHTMLStr += menuStr;
+  });
+  if (innerHTMLStr != '')
+    controller.domElement.children[0].innerHTML = innerHTMLStr;
+}
+
 function LoadModel(url: string): {
   model?: THREE.Group;
   mixer?: THREE.AnimationMixer;
