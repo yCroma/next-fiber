@@ -170,6 +170,7 @@ const CSRenderer = ({
     const folder2 = root.addFolder('clips');
     const folder3 = root.addFolder('presets');
     const folder4 = root.addFolder('helpers');
+    const folder5 = editGUI.addFolder('editor');
     // h2(hierarky 2)
     // controllers
     const folder11 = folder1.addFolder('animation');
@@ -183,6 +184,9 @@ const CSRenderer = ({
       .add(Params, 'preset', Object.keys(Params.presets))
       .onChange(AdaptPreset);
     const folder31 = folder3.addFolder('parameter');
+    // editor
+    const folder51 = folder5.addFolder('clips');
+    const folder52 = folder5.addFolder('presets');
     // h3(hierarky 3)
     // controllers
     const folder120 = folder12.addFolder('position');
