@@ -188,7 +188,7 @@ const CSRenderer = ({
     folder2.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
     const folder21 = folder2.addFolder('parameter');
     // presets
-    folder3
+    const PresetController = folder3
       .add(Params, 'preset', Object.keys(Params.presets))
       .onChange(AdaptPreset);
     const folder31 = folder3.addFolder('parameter');
