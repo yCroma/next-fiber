@@ -406,6 +406,13 @@ const CSRenderer = ({
          * default の end: 0 の時は、nopresetかdefaultなのかわからない
          * よって、1度durationを確認のために上書き
          */
+        /**
+         * 0秒で止められないのは仕様です
+         * もしこの実装を行いたい場合、
+         * クリップでpausedを管理すれば
+         * if(!paused) みたいな分岐で
+         * 新しい仕様を作れると思います
+         */
         if (DefaultClip.end === 0) {
           DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
         }
