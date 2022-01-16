@@ -151,6 +151,8 @@ const CSRenderer = ({
         camera: false,
       },
       editors: {
+        presets: {
+        },
       },
     };
     // dat.GUI
