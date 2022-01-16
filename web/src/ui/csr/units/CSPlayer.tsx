@@ -150,6 +150,8 @@ const CSRenderer = ({
         axes: true,
         camera: false,
       },
+      editors: {
+      },
     };
     // dat.GUI
     const root = new GUI({ autoPlace: false });
