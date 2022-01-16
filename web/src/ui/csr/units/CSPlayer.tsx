@@ -326,6 +326,10 @@ const CSRenderer = ({
         Scene.remove(cameraHelper);
       }
     });
+    // editor
+    const editPresetController = folder52
+      .add(Params, 'preset', Object.keys(Params['presets']))
+      .onChange(AdaptPreset);
     /**
      * Paramsは変わる可能性がある。
      * 直下のadapt関数で初期化は行われている。
