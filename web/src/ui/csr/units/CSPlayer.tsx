@@ -186,7 +186,7 @@ const CSRenderer = ({
     const folder13 = folder1.addFolder('model');
     // clips
     folder2.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
-    const folder51 = folder2.addFolder('parameter');
+    const folder21 = folder2.addFolder('parameter');
     // presets
     folder3
       .add(Params, 'preset', Object.keys(Params.presets))
@@ -455,7 +455,7 @@ const CSRenderer = ({
         folder11.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
         // for clip
         // action
-        folder51
+        folder21
           .add(Params['controllers']['animation'], 'action', [0])
           .onChange((value: number) => {
             /**
@@ -464,13 +464,13 @@ const CSRenderer = ({
              */
           });
         // start
-        folder51
+        folder21
           .add(Params.controllers.animation, 'start')
           .min(Params.controllers.animation.start)
           .max(Params.controllers.animation.end)
           .step(0.001);
         // end
-        folder51
+        folder21
           .add(Params.controllers.animation, 'end')
           .min(Params.controllers.animation.start)
           .max(Params.controllers.animation.end)
