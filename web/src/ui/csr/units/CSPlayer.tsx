@@ -340,13 +340,9 @@ const CSRenderer = ({
     folder521.add(Params['editors']['presets'], 'addName').name('name');
     folder521.add(Params['editors']['presets'], 'addPreset');
     /**
-     * Paramsは変わる可能性がある。
-     * 直下のadapt関数で初期化は行われている。
-     * Adapt後のParamsを信じろ
+     * アニメーションに関する初期化が最後
+     * watchModelLoad()で初期値を適応させている
      */
-    // AdaptDefaultSettings
-    AdaptPreset(Params['preset']);
-    AdaptClip(Params['clip']);
     watchModelLoad();
     let prevWidth: number, prevHeight: number;
     animate();
@@ -412,8 +408,9 @@ const CSRenderer = ({
          * 読み込まれていない可能性がある値はなくなる
          * よって、ここで読み込みが完全に完了する
          */
-        if (setSettings) {
-          setSettings(clone(Settings));
+        // AdaptDefaultSettings
+        AdaptPreset(Params['preset']);
+        AdaptClip(Params['clip']);
         }
         Params.controllers.animation.end = DefaultClip.end;
         // datの初期化
