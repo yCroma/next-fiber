@@ -813,7 +813,8 @@ const CSRenderer = ({
         Params.controllers.camera.lookat.y = obj['camera']['lookat']['y'];
         Params.controllers.camera.lookat.z = obj['camera']['lookat']['z'];
         // controller に対して命令
-        datUpdateDisplayWithRecursive(folder1);
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
       } else {
         console.error('no clip: ', name);
       }
