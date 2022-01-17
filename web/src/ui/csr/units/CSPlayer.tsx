@@ -482,6 +482,14 @@ const CSRenderer = ({
         const DefaultClip = Params['clips']['default']['animation'];
         Params['actions'] = IndexNums(Model['actions']!);
         Model['actions']![DefaultClip['action']].play();
+        if (DefaultClip.end === undefined) {
+          /**
+           * settings のプロップスがないときは、
+           * スコープ外で宣言されているDefaultClip.endを利用する
+           * そこのundefined用の初期化
+           */
+          DefaultClip.end =
+            Model['animations']![DefaultClip['action']].duration;
         }
         // AdaptDefaultSettings
         AdaptPreset(Params['preset']);
@@ -919,7 +927,7 @@ const DefaultClip = {
     animation: {
       action: 0,
       start: 0,
-      end: 0,
+      end: undefined,
     },
     camera: {
       lookat: {
