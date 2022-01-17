@@ -98,11 +98,14 @@ const CSRenderer = ({
      * 2. Paramsに関連する値はonChange毎にupdateすること(.listen()でないと自動で更新されないから)
      * 3. action, preset 共に初期値のindexは0
      * 4. modelに関するもの(actions等)は、watchModelLoad()で初期化
+     * 5. clip の初期値はdefault。このクリップは削除もさせない
+     *    理由は、datGUIの勝手なソーティングで初期値がずらされ
+     *    ることを避けるため
      */
     const Params = {
       preset: Settings['clips'][Object.keys(Settings['clips'])[0]]['preset'],
       presets: Settings!['presets'],
-      clip: Object.keys(Settings['clips'])[0],
+      clip: 'default',
       clips: Settings['clips'],
       actions: [0],
       controllers: {
@@ -479,6 +482,8 @@ const CSRenderer = ({
         /**
          * default の end: 0 の時は、nopresetかdefaultなのかわからない
          * よって、1度durationを確認のために上書き
+         * 初期クリップは"default"で確定
+         * これは仕様
          */
         /**
          * 0秒で止められないのは仕様です
@@ -489,6 +494,8 @@ const CSRenderer = ({
          */
         if (DefaultClip.end === 0) {
           DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
+        const DefaultClip = Params['clips']['default']['animation'];
+        Model['actions']![DefaultClip['action']].play();
         }
         /**
          * デフォルトクリップでendの値を確認すると
