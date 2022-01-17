@@ -152,6 +152,8 @@ const CSRenderer = ({
       },
       editors: {
         clips: {
+          addClip: addClip,
+          addName: '',
         },
         presets: {
           addPreset: addPreset,
@@ -365,6 +367,9 @@ const CSRenderer = ({
         datUpdateDisplayWithRecursive(folder2);
         datUpdateDisplayWithRecursive(folder51);
       });
+    const folder511 = folder51.addFolder('addclip');
+    folder511.add(Params['editors']['clips'], 'addName');
+    folder511.add(Params['editors']['clips'], 'addClip');
     const editPresetController = folder52
       .add(Params, 'preset', Object.keys(Params['presets']))
       .onChange(AdaptPreset);
@@ -550,6 +555,47 @@ const CSRenderer = ({
       Params.controllers.camera.lookat.y = ClipTarget.y;
       Params.controllers.camera.lookat.z = ClipTarget.z;
       datUpdateDisplayWithRecursive(folder121);
+    }
+    function addClip() {
+      const newName = Params['editors']['clips']['addName'];
+      const diffname = !(newName in Params['clips']);
+      const allowAppend = newName.length > 0;
+      if (diffname && allowAppend) {
+        const newAnimation = {
+          action: Params['controllers']['animation']['action'],
+          start: Params['controllers']['animation']['start'],
+          end: Params['controllers']['animation']['end'],
+        };
+        const newLookAt = {
+          x: Params['controllers']['camera']['lookat']['x'],
+          y: Params['controllers']['camera']['lookat']['y'],
+          z: Params['controllers']['camera']['lookat']['z'],
+        };
+        const newPosition = {
+          x: Camera['position']['x'],
+          y: Camera['position']['y'],
+          z: Camera['position']['z'],
+        };
+        const usePreset = Params['preset'];
+        const newClip = {
+          animation: clone(newAnimation),
+          camera: {
+            lookat: clone(newLookAt),
+            position: clone(newPosition),
+          },
+          preset: usePreset,
+        };
+        Params['clips'][newName] = clone(newClip);
+        // for GUI
+        Params['clip'] = newName;
+        AdaptClip(Params['clip']);
+        updateDropdown(ClipController, Params['clips']);
+        updateDropdown(editClipController, Params['clips']);
+        // reset
+        Params['editors']['clips']['addName'] = '';
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
+      }
     }
     function addPreset() {
       const newName = Params['editors']['presets']['addName'];
