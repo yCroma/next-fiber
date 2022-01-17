@@ -154,6 +154,7 @@ const CSRenderer = ({
         clips: {
           addClip: addClip,
           addName: '',
+          updateClip: updateClip,
         },
         presets: {
           addPreset: addPreset,
@@ -367,6 +368,7 @@ const CSRenderer = ({
         datUpdateDisplayWithRecursive(folder2);
         datUpdateDisplayWithRecursive(folder51);
       });
+    folder51.add(Params['editors']['clips'], 'updateClip');
     const folder511 = folder51.addFolder('addclip');
     folder511.add(Params['editors']['clips'], 'addName');
     folder511.add(Params['editors']['clips'], 'addClip');
@@ -596,6 +598,34 @@ const CSRenderer = ({
         datUpdateDisplayWithRecursive(folder2);
         datUpdateDisplayWithRecursive(folder51);
       }
+    }
+    function updateClip() {
+      const currentClip = Params['clip'];
+      const newAnimation = {
+        action: Params['controllers']['animation']['action'],
+        start: Params['controllers']['animation']['start'],
+        end: Params['controllers']['animation']['end'],
+      };
+      const newLookAt = {
+        x: Params['controllers']['camera']['lookat']['x'],
+        y: Params['controllers']['camera']['lookat']['y'],
+        z: Params['controllers']['camera']['lookat']['z'],
+      };
+      const newPosition = {
+        x: Camera['position']['x'],
+        y: Camera['position']['y'],
+        z: Camera['position']['z'],
+      };
+      const usePreset = Params['preset'];
+      const newClip = {
+        animation: clone(newAnimation),
+        camera: {
+          lookat: clone(newLookAt),
+          position: clone(newPosition),
+        },
+        preset: usePreset,
+      };
+      Params['clips'][currentClip] = clone(newClip);
     }
     function addPreset() {
       const newName = Params['editors']['presets']['addName'];
