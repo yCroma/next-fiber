@@ -151,6 +151,8 @@ const CSRenderer = ({
         camera: false,
       },
       editors: {
+        clips: {
+        },
         presets: {
           addPreset: addPreset,
           addName: '',
