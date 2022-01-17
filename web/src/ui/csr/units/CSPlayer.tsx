@@ -333,6 +333,38 @@ const CSRenderer = ({
       }
     });
     // editor
+    const editClipController = folder51
+      .add(Params, 'clip', Object.keys(Params['clips']))
+      .onChange(AdaptClip);
+    // action
+    folder51
+      .add(Params['controllers']['animation'], 'action', [0])
+      .onChange((value: number) => {
+        /**
+         * TASK:
+         * 複数のアニメーションの切り替え
+         */
+      });
+    // start
+    const editClipStartController = folder51
+      .add(Params.controllers.animation, 'start')
+      .min(Params.controllers.animation.start)
+      .max(Params.controllers.animation.end)
+      .step(0.001)
+      .onChange(() => {
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
+      });
+    // end
+    const editClipEndController = folder51
+      .add(Params.controllers.animation, 'end')
+      .min(Params.controllers.animation.start)
+      .max(Params.controllers.animation.end)
+      .step(0.001)
+      .onChange(() => {
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
+      });
     const editPresetController = folder52
       .add(Params, 'preset', Object.keys(Params['presets']))
       .onChange(AdaptPreset);
