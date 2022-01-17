@@ -155,6 +155,7 @@ const CSRenderer = ({
           addClip: addClip,
           addName: '',
           updateClip: updateClip,
+          removeClip: removeClip,
         },
         presets: {
           addPreset: addPreset,
@@ -369,6 +370,7 @@ const CSRenderer = ({
         datUpdateDisplayWithRecursive(folder51);
       });
     folder51.add(Params['editors']['clips'], 'updateClip');
+    folder51.add(Params['editors']['clips'], 'removeClip');
     const folder511 = folder51.addFolder('addclip');
     folder511.add(Params['editors']['clips'], 'addName');
     folder511.add(Params['editors']['clips'], 'addClip');
@@ -626,6 +628,21 @@ const CSRenderer = ({
         preset: usePreset,
       };
       Params['clips'][currentClip] = clone(newClip);
+    }
+    function removeClip() {
+      if (Params['clip'] === 'default') {
+        return;
+      }
+      const currentClip = Params['clip'];
+      delete Params['clips'][currentClip];
+      // for GUI
+      Params['clip'] = 'default';
+      AdaptClip(Params['clip']);
+      updateDropdown(ClipController, Params['clips']);
+      updateDropdown(editClipController, Params['clips']);
+      // reset
+      datUpdateDisplayWithRecursive(folder2);
+      datUpdateDisplayWithRecursive(folder51);
     }
     function addPreset() {
       const newName = Params['editors']['presets']['addName'];
