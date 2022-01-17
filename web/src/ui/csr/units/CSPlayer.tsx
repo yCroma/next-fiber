@@ -104,6 +104,7 @@ const CSRenderer = ({
       presets: Settings!['presets'],
       clip: Object.keys(Settings['clips'])[0],
       clips: Settings['clips'],
+      actions: [0],
       controllers: {
         animation: {
           action: 0,
