@@ -318,6 +318,36 @@ const CSRenderer = ({
           Model['model'].scale.multiplyScalar(value);
         }
       });
+    // Clips
+    // action
+    folder21
+      .add(Params['controllers']['animation'], 'action', [0])
+      .onChange((value: number) => {
+        /**
+         * TASK:
+         * 複数のアニメーションの切り替え
+         */
+      });
+    // start
+    const ClipStartController = folder21
+      .add(Params.controllers.animation, 'start')
+      .min(Params.controllers.animation.start)
+      .max(Params.controllers.animation.end)
+      .step(0.001)
+      .onChange(() => {
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
+      });
+    // end
+    const ClipEndController = folder21
+      .add(Params.controllers.animation, 'end')
+      .min(Params.controllers.animation.start)
+      .max(Params.controllers.animation.end)
+      .step(0.001)
+      .onChange(() => {
+        datUpdateDisplayWithRecursive(folder2);
+        datUpdateDisplayWithRecursive(folder51);
+      });
 
     // Helpers
     // axesHelper
@@ -512,27 +542,8 @@ const CSRenderer = ({
          */
         folder11.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
         // for clip
-        // action
-        folder21
-          .add(Params['controllers']['animation'], 'action', [0])
-          .onChange((value: number) => {
-            /**
-             * TASK:
-             * 複数のアニメーションの切り替え
-             */
-          });
-        // start
-        folder21
-          .add(Params.controllers.animation, 'start')
           .min(Params.controllers.animation.start)
-          .max(Params.controllers.animation.end)
-          .step(0.001);
-        // end
-        folder21
-          .add(Params.controllers.animation, 'end')
           .min(Params.controllers.animation.start)
-          .max(Params.controllers.animation.end)
-          .step(0.001);
         datUpdateDisplayWithRecursive(folder11);
       }
     }
