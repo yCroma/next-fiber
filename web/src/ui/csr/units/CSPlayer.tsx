@@ -480,6 +480,7 @@ const CSRenderer = ({
          * これは仕様
          */
         const DefaultClip = Params['clips']['default']['animation'];
+        Params['actions'] = IndexNums(Model['actions']!);
         Model['actions']![DefaultClip['action']].play();
         }
         // AdaptDefaultSettings
