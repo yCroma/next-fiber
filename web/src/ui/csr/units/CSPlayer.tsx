@@ -492,7 +492,6 @@ const CSRenderer = ({
             Model['animations']![DefaultClip['action']].duration;
         }
         // AdaptDefaultSettings
-        AdaptPreset(Params['preset']);
         AdaptClip(Params['clip']);
         if (settingsRef) {
           settingsRef!.current = {
