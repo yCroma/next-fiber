@@ -475,33 +475,13 @@ const CSRenderer = ({
         console.log('Loaded Model: ', Model);
         Scene.add(Model['model'] as THREE.Group);
         // 初期値の設定
-        const DefaultClipName = Object.keys(Params['clips'])[0];
-        const DefaultClip = Params['clips'][DefaultClipName]['animation'];
-        Params['actions'] = IndexNums(Model!['actions']);
-        Model['actions']![DefaultClip['action']].play();
         /**
-         * default の end: 0 の時は、nopresetかdefaultなのかわからない
-         * よって、1度durationを確認のために上書き
          * 初期クリップは"default"で確定
          * これは仕様
          */
-        /**
-         * 0秒で止められないのは仕様です
-         * もしこの実装を行いたい場合、
-         * クリップでpausedを管理すれば
-         * if(!paused) みたいな分岐で
-         * 新しい仕様を作れると思います
-         */
-        if (DefaultClip.end === 0) {
-          DefaultClip.end = Model['animations'][DefaultClip['action']].duration;
         const DefaultClip = Params['clips']['default']['animation'];
         Model['actions']![DefaultClip['action']].play();
         }
-        /**
-         * デフォルトクリップでendの値を確認すると
-         * 読み込まれていない可能性がある値はなくなる
-         * よって、ここで読み込みが完全に完了する
-         */
         // AdaptDefaultSettings
         AdaptPreset(Params['preset']);
         AdaptClip(Params['clip']);
