@@ -195,7 +195,9 @@ const CSRenderer = ({
     const folder12 = folder1.addFolder('camera');
     const folder13 = folder1.addFolder('model');
     // clips
-    folder2.add(Params, 'clip', Object.keys(Params.clips)).onChange(AdaptClip);
+    const ClipController = folder2
+      .add(Params, 'clip', Object.keys(Params.clips))
+      .onChange(AdaptClip);
     const folder21 = folder2.addFolder('parameter');
     // presets
     const PresetController = folder3
