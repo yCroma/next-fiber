@@ -542,9 +542,21 @@ const CSRenderer = ({
          */
         folder11.add(Params.controllers.model, 'velocity', 0, 2, 0.01);
         // for clip
+        ClipStartController.min(Params.controllers.animation.start).max(
+          Params.controllers.animation.end
+        );
+        ClipEndController.min(Params.controllers.animation.start).max(
+          Params.controllers.animation.end
+        );
+        editClipStartController
           .min(Params.controllers.animation.start)
+          .max(Params.controllers.animation.end);
+        editClipEndController
           .min(Params.controllers.animation.start)
+          .max(Params.controllers.animation.end);
         datUpdateDisplayWithRecursive(folder11);
+        datUpdateDisplayWithRecursive(folder21);
+        datUpdateDisplayWithRecursive(folder51);
       }
     }
     function resetPosition() {
