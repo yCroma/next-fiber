@@ -12,11 +12,13 @@ const CSRenderer = ({
   mode,
   settings,
   settingsRef,
+  CommentClipRef,
 }: {
   fbxurl: string;
   mode: string;
   settings?: Object;
   settingsRef?: Object;
+  CommentClipRef?: Object;
 }) => {
   const TargetRef = useRef<HTMLDivElement>(null!);
   useEffect(() => {
@@ -433,6 +435,21 @@ const CSRenderer = ({
     let prevWidth: number, prevHeight: number;
     animate();
     function animate() {
+      if (CommentClipRef) {
+        const { setClip, commentClip } = CommentClipRef!.current;
+        const allowAppend = Object.keys(commentClip).length > 0;
+        if (allowAppend && setClip === false) {
+          Params['clips']['comment'] = clone(commentClip);
+          Params['clip'] = 'comment';
+          AdaptClip('comment');
+          updateDropdown(ClipController, Params['clips']);
+          updateDropdown(editClipController, Params['clips']);
+          // reset
+          datUpdateDisplayWithRecursive(folder2);
+          datUpdateDisplayWithRecursive(folder51);
+          CommentClipRef.current!.setClip = true;
+        }
+      }
       if (settingsRef) {
         settingsRef.current! = {
           clips: clone(Params['clips']),
