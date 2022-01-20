@@ -13,12 +13,14 @@ const CSRenderer = ({
   settings,
   settingsRef,
   CommentClipRef,
+  newCommentClipRef,
 }: {
   fbxurl: string;
   mode: string;
   settings?: Object;
   settingsRef?: Object;
   CommentClipRef?: Object;
+  newCommentClipRef?: Object;
 }) => {
   const TargetRef = useRef<HTMLDivElement>(null!);
   useEffect(() => {
@@ -448,6 +450,36 @@ const CSRenderer = ({
           datUpdateDisplayWithRecursive(folder2);
           datUpdateDisplayWithRecursive(folder51);
           CommentClipRef.current!.setClip = true;
+        }
+      }
+      if (newCommentClipRef) {
+        const saveCurrent = newCommentClipRef.current.saveClip;
+        if (saveCurrent) {
+          const newAnimation = {
+            action: Params['controllers']['animation']['action'],
+            start: Params['controllers']['animation']['start'],
+            end: Params['controllers']['animation']['end'],
+          };
+          const newLookAt = {
+            x: Params['controllers']['camera']['lookat']['x'],
+            y: Params['controllers']['camera']['lookat']['y'],
+            z: Params['controllers']['camera']['lookat']['z'],
+          };
+          const newPosition = {
+            x: Camera['position']['x'],
+            y: Camera['position']['y'],
+            z: Camera['position']['z'],
+          };
+          const usePreset = Params['preset'];
+          const newClip = {
+            animation: clone(newAnimation),
+            camera: {
+              lookat: clone(newLookAt),
+              position: clone(newPosition),
+            },
+            preset: usePreset,
+          };
+          newCommentClipRef!.current!.clip = clone(newClip);
         }
       }
       if (settingsRef) {
