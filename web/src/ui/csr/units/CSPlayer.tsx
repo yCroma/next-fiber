@@ -418,6 +418,13 @@ const CSRenderer = ({
     const folder521 = folder52.addFolder('addpreset');
     folder521.add(Params['editors']['presets'], 'addName').name('name');
     folder521.add(Params['editors']['presets'], 'addPreset');
+
+    folder1.open();
+    folder2.open();
+    folder5.open();
+    folder51.open();
+    folder52.open();
+    folder11.open();
     /**
      * アニメーションに関する初期化が最後
      * watchModelLoad()で初期値を適応させている
