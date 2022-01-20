@@ -640,8 +640,9 @@ const CSRenderer = ({
     function addClip() {
       const newName = Params['editors']['clips']['addName'];
       const diffname = !(newName in Params['clips']);
+      const noCommentName = newName !== 'comment';
       const allowAppend = newName.length > 0;
-      if (diffname && allowAppend) {
+      if (diffname && allowAppend && noCommentName) {
         const newAnimation = {
           action: Params['controllers']['animation']['action'],
           start: Params['controllers']['animation']['start'],
