@@ -1,12 +1,27 @@
-import { useEffect, useRef, useState } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { DropzoneArea } from "material-ui-dropzone";
+import { useEffect, useRef, useState } from 'react';
 
 import NewRenderer from "./NewPlayer";
+const PostData: {
+  title: string;
+  comment: string;
+  filename: string;
+  settings: Object | null;
+} = {
+  title: '',
+  comment: '',
+  filename: '',
+  settings: null,
+};
 
 const Uploader = () => {
+  const [title, setTitle] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
   const [file, setFile] = useState<File>(null!);
   const [fileurl, setFileURL] = useState<string>(null!);
+  const settingsRef = useRef(null);
+  const [url, setURL] = useState<URL | undefined>(undefined);
   useEffect(() => {
     if (file) {
       setFileURL(window.URL.createObjectURL(file));
