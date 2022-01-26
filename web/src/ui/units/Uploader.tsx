@@ -47,6 +47,17 @@ const Uploader = () => {
       window.URL.revokeObjectURL(fileurl);
     };
   }, [file]);
+
+  const handleFile = (files: Array<File>) => {
+    const file = files[0];
+    setFile(file);
+  };
+  const handleTitle = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleComment = (event) => {
+    setComment(event.target.value);
+  };
   return (
     <Stack spacing={2}>
       <Grid item>
