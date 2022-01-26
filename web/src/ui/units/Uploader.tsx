@@ -1,9 +1,14 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import { DropzoneArea } from "material-ui-dropzone";
+import NextLink from 'next/link';
+import Router from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   Link as MUILink,
   Stack,
@@ -40,6 +45,8 @@ const Uploader = () => {
   const [fileurl, setFileURL] = useState<string>(null!);
   const settingsRef = useRef(null);
   const [url, setURL] = useState<URL | undefined>(undefined);
+  const [dialog, setDialog] = useState<boolean>(false);
+
   useEffect(() => {
     if (file) {
       setFileURL(window.URL.createObjectURL(file));
@@ -60,6 +67,13 @@ const Uploader = () => {
   const handleComment = (event) => {
     setComment(event.target.value);
   };
+
+  useEffect(() => {
+    if (url) {
+      setDialog(true);
+    }
+  }, [url]);
+
   async function PostWork() {
     /**
      * TASK:
@@ -119,17 +133,31 @@ const Uploader = () => {
   }
   return (
     <Stack spacing={2}>
-      <Grid item>
-        <Typography variant="h2">Upload a FBX file</Typography>
-      </Grid>
-      <DropzoneArea
-        filesLimit={1}
-        acceptedFiles={[".fbx"]}
-        dropzoneText={"Drag and drop an file(.fbx) or click"}
-        onChange={(files) => setFile(files[0])}
-      />
-      {fileurl && <Typography>URL: {fileurl}</Typography>}
-      {fileurl && <NewRenderer url={fileurl} />}
+      <Dialog open={dialog}>
+        <DialogTitle>作品の投稿が完了しました！</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Typography>作品URLの発行が完了しました！</Typography>
+            <Typography>保管し忘れないよう注意してください！</Typography>
+            <NextLink href={url?.pathname} passHref>
+              <MUILink underline="hover">
+                http://{url?.hostname}:3000{url?.pathname}
+              </MUILink>
+            </NextLink>
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={() => (window.location.pathname = '/upload')}>
+              次の作品を投稿する！
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => Router.push(url!.pathname)}
+            >
+              作品を見に行く！
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
       <Stack spacing={2}>
         <Grid item>
           <Typography variant="h2">Upload a FBX file</Typography>
