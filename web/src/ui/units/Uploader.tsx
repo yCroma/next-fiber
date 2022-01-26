@@ -1,6 +1,22 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useEffect, useRef, useState } from 'react';
+import {
+  Box,
+  Button,
+  Grid,
+  Link as MUILink,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { DropzoneArea } from 'material-ui-dropzone';
+
+import dynamic from 'next/dynamic';
+const CSPlayer = dynamic(() => import('../csr/units/CSPlayer'), {
+  loading: () => <p>Loading ...</p>,
+  ssr: false,
+});
 
 import NewRenderer from "./NewPlayer";
 const PostData: {
@@ -44,6 +60,39 @@ const Uploader = () => {
       />
       {fileurl && <Typography>URL: {fileurl}</Typography>}
       {fileurl && <NewRenderer url={fileurl} />}
+      <Stack spacing={2}>
+        <Grid item>
+          <Typography variant="h2">Upload a FBX file</Typography>
+        </Grid>
+      </Stack>
+      {!fileurl && (
+        <DropzoneArea
+          filesLimit={1}
+          acceptedFiles={['.fbx']}
+          dropzoneText={'Drag and drop an file(.fbx) or click'}
+          onChange={handleFile}
+          showPreviewsInDropzone={false}
+        />
+      )}
+      {fileurl && (
+        <Stack spacing={1} mb={1}>
+          {!url && (
+            <Box mb={2.5}>
+              <Button variant="contained" color="warning" onClick={PostWork}>
+                投稿する！
+              </Button>
+            </Box>
+          )}
+          <TextField required label="Title" onChange={handleTitle} />
+          <TextField
+            required
+            label="Comment"
+            multiline
+            onChange={handleComment}
+          />
+          <CSPlayer fbxurl={fileurl} mode={'edit'} settingsRef={settingsRef} />
+        </Stack>
+      )}
     </Stack>
   );
 };
