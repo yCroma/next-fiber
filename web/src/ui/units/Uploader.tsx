@@ -18,7 +18,9 @@ const CSPlayer = dynamic(() => import('../csr/units/CSPlayer'), {
   ssr: false,
 });
 
-import NewRenderer from "./NewPlayer";
+import clone from 'clone';
+import axios from 'axios';
+
 const PostData: {
   title: string;
   comment: string;
@@ -58,6 +60,63 @@ const Uploader = () => {
   const handleComment = (event) => {
     setComment(event.target.value);
   };
+  async function PostWork() {
+    /**
+     * TASK:
+     * - validation
+     *  - 0文字で投稿を不可にする
+     */
+    PostData['title'] = title;
+    PostData['comment'] = comment;
+    PostData['filename'] = file.name;
+    PostData['settings'] = clone(settingsRef.current);
+    const path = await axios({
+      method: 'POST',
+      url: 'http://192.168.1.14:8080/upload/params',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: PostData,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.error('Err: ', error);
+      });
+    const reader = new FileReader();
+    const data = new FormData();
+    reader.readAsArrayBuffer(file);
+    reader.onload = (e) => {
+      const arbf = e.target?.result;
+      const newFile = new File([arbf], path);
+      data.append('file', newFile);
+      axios({
+        method: 'POST',
+        url: 'http://192.168.1.14:8080/upload/fbx',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: data,
+      })
+        .then((response) => {
+          /**
+           * TASK:
+           * HTTPStatusにあわせた条件分岐
+           */
+          const baseURL = 'http://192.168.1.14:8080/works';
+          const createURL = new URL(`${baseURL}/${path}`);
+          setURL(createURL);
+        })
+        .catch((error) => {
+          console.log('err: ', error);
+        });
+    };
+    /**
+     * TASK:
+     * - 誘導を促すlog
+     */
+  }
   return (
     <Stack spacing={2}>
       <Grid item>
