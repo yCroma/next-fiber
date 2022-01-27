@@ -118,7 +118,7 @@ const Uploader = () => {
            * TASK:
            * HTTPStatusにあわせた条件分岐
            */
-          const baseURL = 'http://192.168.1.14:8080/works';
+          const baseURL = 'http://192.168.1.14:3000/works';
           const createURL = new URL(`${baseURL}/${path}`);
           setURL(createURL);
         })
@@ -140,9 +140,7 @@ const Uploader = () => {
             <Typography>作品URLの発行が完了しました！</Typography>
             <Typography>保管し忘れないよう注意してください！</Typography>
             <NextLink href={url?.pathname} passHref>
-              <MUILink underline="hover">
-                http://{url?.hostname}:3000{url?.pathname}
-              </MUILink>
+              <MUILink underline="hover">{url?.href}</MUILink>
             </NextLink>
           </DialogContentText>
           <DialogActions>
